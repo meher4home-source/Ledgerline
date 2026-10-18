@@ -75,7 +75,7 @@ const TASK={vat:["Share your VAT number and Gateway access","Upload sales and pu
 const CAL={gst:[["GSTR-1 due","m",11],["GSTR-3B due","m",20]],tds:[["TDS deposit due","m",7]],pf:[["PF/ESI due","m",15]],w2:[["1099-NEC / W-2 due","y",[[1,31]]]],st:[["Sales tax return (most states)","m",20]],pr:[["Form 941 due","y",[[1,31],[4,30],[7,31],[10,31]]]],itr:[["ITR due date (non-audit)","y",[[7,31]]]]};
 const KEY="ledgerline";let S=JSON.parse(localStorage.getItem(KEY)||"{}"),W={step:0,c:null,pb:[],plan:null};
 const save=()=>localStorage.setItem(KEY,JSON.stringify(S));
-function view(v){["landing","wiz","dash"].forEach(x=>$("#"+x).classList.toggle("hide",x!=v));scrollTo(0,0);if(v=="wiz"){W={step:0,c:null,pb:[],plan:null};step()}if(v=="dash")dash()}
+function view(v){if(v=="wiz"){location.href="app.html#signup";return}["landing","wiz","dash"].forEach(x=>$("#"+x).classList.toggle("hide",x!=v));scrollTo(0,0);if(v=="wiz"){W={step:0,c:null,pb:[],plan:null};step()}if(v=="dash")dash()}
 document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g)view(g.dataset.go)});
 if(CFG.whatsapp.includes("XXXX"))$("#wa").classList.add("hide");$("#wa").href="https://wa.me/"+CFG.whatsapp+"?text="+encodeURIComponent("Hi, I want to know about Ledgerline");
 const rec=n=>n<=1?0:n<=3?1:2;
