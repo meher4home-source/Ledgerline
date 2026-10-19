@@ -4,7 +4,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <script>function mockClient(){
 const KEY="ledgerline_demo",D=JSON.parse(sessionStorage.getItem(KEY)||"null")||{u:[],pr:[],invoices:[],entries:[],clients:[],s:null},sv=()=>sessionStorage.setItem(KEY,JSON.stringify(D)),id=()=>"d"+Math.random().toString(36).slice(2,10),T={profiles:"pr"};
-const login=email=>{let u=D.u.find(x=>x.email==email);if(!u){u={id:id(),email};D.u.push(u);D.pr.push({id:u.id,email,onboarded:false,status:"trial",trial_ends_at:new Date(Date.now()+14*864e5).toISOString()})}D.s=u;sv();return u};
+const login=(email,pw)=>{let u=D.u.find(x=>x.email==email);if(!u){u={id:id(),email,pw};D.u.push(u);D.pr.push({id:u.id,email,onboarded:false,status:"trial",trial_ends_at:new Date(Date.now()+14*864e5).toISOString()})}D.s=u;sv();return u};
 const seed=p=>{const u=p.id,d=n=>new Date(Date.now()-n*864e5).toISOString().slice(0,10),I=(no,cl,st,s,tx)=>D.invoices.push({id:id(),user_id:u,number:no,client:cl,issue_date:d(9),items:[{d:"Monthly bookkeeping",q:1,r:s}],tax_rate:tx,subtotal:s,tax:s*tx/100,total:s*(1+tx/100),status:st,client_id:null,created_at:new Date().toISOString()}),E=(t,c,a,n,x)=>D.entries.push({id:id(),user_id:u,entry_date:d(x),type:t,category:c,amount:a,note:n,client_id:null});
 I("INV-0001","Acme Traders","paid",500,18);I("INV-0002","Blue Orbit LLP","unpaid",1200,18);E("in","Owner capital",5000,"Opening capital",20);E("in","Invoice receipt",590,"INV-0001 Acme Traders",8);E("out","Rent",800,"Office rent",6);E("out","Software",120,"Subscriptions",3);
 if(p.plan=="Firm")["Sharma Traders","Patel Foods","Nova Studio"].forEach(n=>D.clients.push({id:id(),user_id:u,name:n}))};
@@ -15,8 +15,8 @@ if(q.op=="u"){m.forEach(r=>Object.assign(r,q.row));sv();return{data:null,error:n
 if(q.op=="d"){D[k]=rows.filter(r=>!m.includes(r));sv();return{data:null,error:null}}
 const own=m.filter(r=>t=="profiles"||r.user_id==(D.s&&D.s.id));return q.one?{data:own[0]||null,error:null}:{data:own.slice().reverse(),error:null}};
 const b={select(){return b},order(){return b},single(){q.one=true;return b},eq(c,v){q.f.push(r=>r[c]==v);return b},is(c,v){q.f.push(r=>(r[c]??null)===v);return b},insert(r){q.op="i";q.row=r;return b},update(r){q.op="u";q.row=r;return b},delete(){q.op="d";return b},then(a,c){return Promise.resolve(run()).then(a,c)}};return b};
-const auth={getSession:async()=>({data:{session:D.s?{user:D.s}:null}}),signUp:async o=>({data:{session:{user:login(o.email)}},error:null}),
-signInWithPassword:async o=>{const u=D.u.find(x=>x.email==o.email);if(!u)return{data:{},error:{message:"Demo: no such account yet. Create one first."}};D.s=u;sv();return{data:{},error:null}},
+const auth={getSession:async()=>({data:{session:D.s?{user:D.s}:null}}),signUp:async o=>D.u.find(x=>x.email==o.email)?{data:{},error:{message:"User already registered"}}:{data:{session:{user:login(o.email,o.password)}},error:null},
+signInWithPassword:async o=>{const u=D.u.find(x=>x.email==o.email);if(!u||u.pw!=o.password)return{data:{},error:{message:"Invalid login credentials"}};D.s=u;sv();return{data:{},error:null}},
 signInWithOAuth:async()=>{login("demo.google@example.com");location.reload()},signOut:async()=>{D.s=null;sv()},resetPasswordForEmail:async()=>({}),updateUser:async()=>({}),onAuthStateChange(){}};
 const rpc=async(n,a)=>{if(n=="complete_onboarding"){const p=D.pr.find(x=>x.id==D.s.id);Object.assign(p,{name:a.nm,business:a.bz,country:a.c,plan:a.p,problems:a.pb,onboarded:true});seed(p);sv()}return{error:null}};
 return{auth,from,rpc}}</script>
@@ -37,22 +37,21 @@ label{display:block;font-weight:600;margin:12px 0 4px}input,select,textarea{widt
 table{width:100%;border-collapse:collapse}td,th{padding:9px 6px;border-top:1px solid var(--rule);text-align:left}th{font-size:12px;color:var(--m);text-transform:uppercase;letter-spacing:.04em;border-top:0}td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}tr.t td{font-weight:700;border-top:2px solid var(--ink)}
 .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;align-items:end}.pill{font-size:12px;font-weight:700;padding:2px 9px;border-radius:99px}.paid{background:#D1FAE5;color:#065F46}.unpaid{background:#FEF3C7;color:#92400E}
 @media print{.top,.tabs,.banner,.btn{display:none!important}body{background:#fff}}
-</style></head><body><div style="background:#FEF3C7;color:#92400E;padding:8px 16px;font:600 13px system-ui;text-align:center">DEMO PREVIEW: nothing is saved to a server. Any email and password works. Do not deploy this file.</div>
+</style></head><body><div style="background:#FEF3C7;color:#92400E;padding:8px 16px;font:600 13px system-ui;text-align:center">DEMO PREVIEW: nothing is saved to a server. Use any email and an 8+ character password. Do not deploy this file.</div>
 <div id="auth" class="auth hide"><div class="logo" style="margin-bottom:16px;font-size:26px"><img src="/logo.svg" alt="" width="26" height="26" style="vertical-align:-5px;margin-right:6px">Ledger<i>line</i></div><div class="card"><h2 id="at">Start your 14-day free trial</h2>
-<form id="af" novalidate><div id="sf" class="hide"><label for="nm">Your name</label><input id="nm"><label for="bz">Business name</label><input id="bz"></div>
+<button type="button" class="btn" id="gg" style="width:100%;margin-bottom:12px">Continue with Google</button><p style="text-align:center;color:var(--m);margin:0 0 4px">or use your email</p><form id="af" novalidate><div id="sf" class="hide"><label for="nm">Your name</label><input id="nm"><label for="bz">Business name</label><input id="bz"></div>
 <div id="ew"><label for="em">Email</label><input id="em" type="email" autocomplete="email"></div><label for="pw">Password (8+ characters)</label><div style="position:relative"><input id="pw" type="password" autocomplete="current-password" style="padding-right:64px"><button type="button" id="eye" aria-label="Show password" style="position:absolute;right:6px;top:6px;border:0;background:none;color:var(--gd);font-weight:600;font-size:13px;cursor:pointer;padding:6px">Show</button></div>
-<div class="err" id="ae" role="alert"></div><button class="btn" id="ab" style="width:100%;margin-top:6px">Create account</button></form>
-<button type="button" class="btn d" id="gg" style="width:100%;margin-top:12px">Continue with Google</button><p style="margin:14px 0 0"><a href="#" id="fp" style="color:var(--m);float:right">Forgot password?</a><a href="#" id="sw" style="color:var(--gd);font-weight:600">I already have an account</a></p><p style="font-size:12px;color:var(--m);margin:12px 0 0">By continuing you agree to the <a href="terms">Terms</a> and <a href="privacy">Privacy Policy</a>.</p></div></div>
+<div class="err" id="ae" role="alert"></div><p style="font-size:13px;color:var(--m);margin:8px 0 0">New or returning, just continue. We create your account automatically.</p><button class="btn" id="ab" style="width:100%;margin-top:6px">Create account</button></form>
+<p style="margin:14px 0 0"><a href="#" id="fp" style="color:var(--m);float:right">Forgot password?</a><a href="#" id="sw" class="hide" style="color:var(--gd);font-weight:600">I already have an account</a></p><p style="font-size:12px;color:var(--m);margin:12px 0 0">By continuing you agree to the <a href="terms">Terms</a> and <a href="privacy">Privacy Policy</a>.</p></div></div>
 
-<div id="ob" class="auth hide" style="max-width:560px"><div class="card"><h2>Set up your workspace</h2><p style="color:var(--m)">One minute. Your 14-day trial starts now, no card needed.</p>
-<label for="on">Your name</label><input id="on"><label for="ob2">Business name</label><input id="ob2"><label for="oc">Country</label><select id="oc"></select>
-<label for="ok">I am a</label><select id="ok"><option value="b">Business owner or freelancer</option><option value="f">CA, accountant or bookkeeper (several clients)</option></select>
-<label>What do you need?</label><div id="op"></div><label>Choose a plan</label><div id="opl"></div><div class="err" id="oe"></div><button class="btn" id="ogo" style="width:100%">Start 14-day free trial</button></div></div>
+<div id="ob" class="auth hide"><div class="card"><h2>Welcome! One quick step</h2><p style="color:var(--m)">Your 14-day free trial starts now. No card needed.</p>
+<label for="ob2">Business name (optional)</label><input id="ob2" placeholder="My business"><label for="oc">Country</label><select id="oc"></select>
+<label>I am</label><div id="opl"></div><div class="err" id="oe"></div><button class="btn" id="ogo" style="width:100%">Continue</button></div></div>
 <div id="app" class="hide"><div class="top"><div class="w"><div class="logo"><img src="/logo-light.svg" alt="" width="26" height="26" style="vertical-align:-5px;margin-right:6px">Ledger<i>line</i></div><div><span id="who" style="margin-right:12px;color:#B9C3D6"></span><button class="btn o s" id="so">Sign out</button></div></div></div>
 <div class="w"><div class="banner" id="bn"></div><div class="tabs" id="tabs"></div><div id="pane"></div></div></div>
 
 <script>
-const SB_URL="demo",SB_KEY="demo",PAY={"Starter":"https://example.com/pay","Growth":"https://example.com/pay","Firm":"https://example.com/pay"}; // PAY: {"Growth":"https://your-payment-link"}
+const SB_URL="demo",SB_KEY="demo",PAY={"Growth":"https://example.com/pay","Firm":"https://example.com/pay","Starter":"https://example.com/pay"}; // PAY: {"Growth":"https://your-payment-link"}
 const sb=mockClient(),$=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const CUR={in:"₹",us:"$",uk:"£",ca:"C$",au:"A$",ae:"AED ",sg:"S$",gl:"$"};
 const CI=["Owner capital","Loan received","Other income"],CO=["Rent","Salaries","Software","Marketing","Travel","Supplies","Taxes paid","Other expense"];
@@ -62,37 +61,38 @@ const CAL={in:["GSTR-1 (monthly or quarterly)","GSTR-3B (monthly)","TDS deposit 
 let CL=[],CID=null;
 function dl(){return`<div class="card"><h3>Filing calendar: ${CN[P.country]||"Your country"}</h3><ul>${(CAL[P.country]||CAL.gl).map(x=>`<li>${x}</li>`).join("")}</ul><p style="color:var(--m)">Check exact due dates with your tax authority. Email reminders are coming soon.</p></div>`}
 function showOb(){["#auth","#app"].forEach(x=>$(x).classList.add("hide"));$("#ob").classList.remove("hide");
-$("#oc").innerHTML=Object.keys(CN).map(k=>`<option value="${k}">${CN[k]}</option>`).join("");
-$("#op").innerHTML=NEED.map(n=>`<label style="font-weight:400;display:flex;gap:8px;align-items:center;margin:4px 0"><input type="checkbox" value="${n}" style="width:auto">${n}</label>`).join("");
-const pl=()=>{const c=$("#oc").value,k=$("#ok").value;$("#opl").innerHTML=PN.map((n,j)=>`<label style="font-weight:400;display:block;border:1.5px solid var(--rule);border-radius:10px;padding:10px;margin:6px 0"><input type="radio" name="opl" value="${n}" style="width:auto" ${n==(k=="f"?"Firm":"Growth")?"checked":""}> <b>${n}</b> ${CUR[c]}${PR[c][j]}/month<br><small style="color:var(--m)">${PD[j]}</small></label>`).join("")};
-$("#oc").onchange=pl;$("#ok").onchange=pl;pl();
-$("#ogo").onclick=async()=>{const nm=$("#on").value.trim(),bz=$("#ob2").value.trim();if(!nm||!bz){$("#oe").textContent="Enter your name and business name.";return}
-const pb=[...document.querySelectorAll("#op input:checked")].map(x=>x.value),pn=(document.querySelector("[name=opl]:checked")||{}).value;
-$("#ogo").disabled=true;const{error}=await sb.rpc("complete_onboarding",{nm,bz,c:$("#oc").value,p:pn,pb});$("#ogo").disabled=false;
-if(error){$("#oe").textContent=error.message;return}$("#ob").classList.add("hide");boot()}}
+const z=Intl.DateTimeFormat().resolvedOptions().timeZone||"",g=/^Asia\/(Kolkata|Calcutta)/.test(z)?"in":z=="Asia/Dubai"?"ae":z=="Asia/Singapore"?"sg":z=="Europe/London"?"uk":z.startsWith("Australia/")?"au":/^America\/(Toronto|Vancouver|Edmonton|Winnipeg|Halifax|Montreal|Regina|St_Johns)/.test(z)?"ca":z.startsWith("America/")?"us":"gl";
+$("#oc").innerHTML=Object.keys(CN).map(k=>`<option value="${k}">${CN[k]}</option>`).join("");$("#oc").value=g;
+const pl=()=>{const c=$("#oc").value,sel=(document.querySelector("[name=opl]:checked")||{}).value||"Growth";$("#opl").innerHTML=[["Growth","A business owner or freelancer",1],["Firm","A CA, accountant or bookkeeper with clients",2]].map(([n,l,j])=>`<label style="font-weight:400;display:block;border:1.5px solid var(--rule);border-radius:10px;padding:10px;margin:6px 0"><input type="radio" name="opl" value="${n}" style="width:auto" ${n==sel?"checked":""}> <b>${l}</b><br><small style="color:var(--m)">${n} plan, ${CUR[c]}${PR[c][j]}/month after your trial</small></label>`).join("")};
+$("#oc").onchange=pl;pl();
+$("#ogo").onclick=async()=>{const bz=$("#ob2").value.trim()||"My business",pn=(document.querySelector("[name=opl]:checked")||{}).value||"Growth";
+$("#ogo").disabled=true;const{error}=await sb.rpc("complete_onboarding",{nm:"",bz,c:$("#oc").value,p:pn,pb:[]});$("#ogo").disabled=false;
+if(error){$("#oe").textContent="Something went wrong. Please try again.";return}$("#ob").classList.add("hide");boot()}}
 function cls(){return`<div class="card"><h3>Add a client (${CL.length}/50)</h3><div class="row"><div><label for="cn2">Client name</label><input id="cn2"></div><div><button class="btn" id="cadd">Add client</button></div></div><div class="err" id="cle"></div></div><div class="card" style="margin-top:16px"><h3>Your clients</h3><table><tr><td>My own business</td><td class="r"><button class="btn s d" data-oc="">Open</button></td></tr>${CL.map(x=>`<tr><td>${esc(x.name)}</td><td class="r"><button class="btn s d" data-oc="${x.id}">Open</button></td></tr>`).join("")}</table></div>`}
 let U,P,INV=[],ENT=[],tab="ov",signup=true;
 const cs=()=>CUR[P?.country]||"$",m=n=>cs()+(+n||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2}),today=()=>new Date().toISOString().slice(0,10);
 const wiz=()=>{try{return JSON.parse(localStorage.getItem("ledgerline_wiz")||"{}")}catch{return{}}};
-function mode(s){signup=s;$("#at").textContent=s?"Start your 14-day free trial":"Welcome back";$("#ab").textContent=s?"Create account":"Sign in";$("#sw").textContent=s?"I already have an account":"Create a new account";$("#ae").textContent=""}
+function mode(){$("#at").textContent="Start your 14-day free trial";$("#ab").textContent="Continue";$("#ae").textContent=""}
 $("#sw").onclick=e=>{e.preventDefault();mode(!signup)};
 let rec=false;
 $("#eye").onclick=()=>{const p=$("#pw"),h=p.type=="password";p.type=h?"text":"password";$("#eye").textContent=h?"Hide":"Show"};
 $("#gg").onclick=()=>sb.auth.signInWithOAuth({provider:"google",options:{redirectTo:location.origin+location.pathname}});
 $("#fp").onclick=async e=>{e.preventDefault();const er=$("#ae"),em=$("#em").value.trim();if(!em){er.className="err";er.textContent="Enter your email first.";return}await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname});er.className="err ok";er.textContent="If that email has an account, a reset link is on its way."};
 sb.auth.onAuthStateChange(ev=>{if(ev=="PASSWORD_RECOVERY"){rec=true;$("#auth").classList.remove("hide");$("#app").classList.add("hide");["#sf","#ew","#gg","#fp","#sw"].forEach(x=>$(x).classList.add("hide"));$("#at").textContent="Set a new password";$("#ab").textContent="Update password"}});
+const FR=m=>/rate limit|too many/i.test(m)?"Too many tries. Please wait a minute and try again.":/not confirmed/i.test(m)?"Please confirm your email first. Check your inbox.":/network|fetch/i.test(m)?"Connection problem. Check your internet and try again.":m;
 $("#af").onsubmit=async e=>{e.preventDefault();const er=$("#ae"),em=$("#em").value.trim(),pw=$("#pw").value;er.className="err";er.textContent="";
-if(rec){if(pw.length<8){er.textContent="Use 8 or more characters.";return}const u=await sb.auth.updateUser({password:pw});if(u.error){er.textContent=u.error.message;return}rec=false;location.href=location.pathname;return}
-if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)||pw.length<8){er.textContent="Enter a valid email and a password of 8+ characters.";return}
-$("#ab").disabled=true;let r;
-if(signup){r=await sb.auth.signUp({email:em,password:pw,options:{emailRedirectTo:location.origin+location.pathname}});
-if(!r.error&&!r.data.session){er.className="err ok";er.textContent="Check your email to confirm, then sign in.";$("#ab").disabled=false;return}}
-else r=await sb.auth.signInWithPassword({email:em,password:pw});
-$("#ab").disabled=false;if(r.error){er.textContent=r.error.message;return}boot()};
+if(rec){if(pw.length<8){er.textContent="Password needs 8 or more characters.";return}const u=await sb.auth.updateUser({password:pw});if(u.error){er.textContent=FR(u.error.message);return}rec=false;location.href=location.pathname;return}
+if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)){er.textContent="Please enter a valid email.";return}
+if(pw.length<8){er.textContent="Password needs 8 or more characters.";return}
+$("#ab").disabled=true;let r=await sb.auth.signInWithPassword({email:em,password:pw});
+if(r.error&&/invalid login/i.test(r.error.message)){const g=await sb.auth.signUp({email:em,password:pw,options:{emailRedirectTo:location.origin+location.pathname}});
+if(g.error)r={error:{message:/already|registered/i.test(g.error.message)?"Wrong password for this email. Tap Forgot password to reset it.":g.error.message}};
+else if(!g.data.session){er.className="err ok";er.textContent="Almost done: open the link we emailed you.";$("#ab").disabled=false;return}else r=g}
+$("#ab").disabled=false;if(r.error){er.textContent=FR(r.error.message);return}boot()};
 $("#so").onclick=async()=>{await sb.auth.signOut();location.reload()};
 async function boot(){if(SB_URL.includes("YOUR-PROJECT")){document.body.innerHTML="<p style='padding:40px;font:16px system-ui'>Ledgerline is not configured yet. Set SB_URL and SB_KEY in app.html.</p>";return}const{data:{session}}=await sb.auth.getSession();if(rec)return;if(!session){$("#auth").classList.remove("hide");$("#app").classList.add("hide");mode(location.hash=="#signup"||(location.hash!="#login"&&!localStorage.getItem("ledgerline_seen")));return}
-U=session.user;localStorage.setItem("ledgerline_seen","1");const q=t=>{const x=sb.from(t).select();return CID?x.eq("client_id",CID):x.is("client_id",null)};const[p,i,e,c]=await Promise.all([sb.from("profiles").select().eq("id",U.id).single(),q("invoices").order("created_at",{ascending:false}),q("entries").order("entry_date",{ascending:false}),sb.from("clients").select().order("name")]);CL=c.data||[];
-P=p.data||{};INV=i.data||[];ENT=e.data||[];if(P.id&&!P.onboarded){showOb();return}if(P.plan!="Firm")CID=null;$("#auth").classList.add("hide");$("#app").classList.remove("hide");$("#who").textContent=P.business||U.email;
+U=session.user;localStorage.setItem("ledgerline_seen","1");const q=t=>{const x=sb.from(t).select();return CID?x.eq("client_id",CID):x.is("client_id",null)};const[p,i,e,c]=await Promise.all([sb.from("profiles").select().eq("id",U.id).single(),q("invoices").order("created_at",{ascending:false}),q("entries").order("entry_date",{ascending:false}),sb.from("clients").select().order("name")]);CL=c.data||[];if(p.error||!p.data){document.body.innerHTML='<div class="auth"><div class="card"><h3>We could not load your account</h3><p>Please refresh. If it keeps happening, contact support.</p><p style="font-size:12px;color:#586174">'+esc(p.error?p.error.message:"profile missing")+'</p><button class="btn" onclick="location.reload()">Refresh</button></div></div>';return}
+P=p.data||{};INV=i.data||[];ENT=e.data||[];if(P.id&&!P.onboarded){showOb();return}if(P.plan!="Firm"){CID=null;if(tab=="cl")tab="ov"}$("#auth").classList.add("hide");$("#app").classList.remove("hide");$("#who").textContent=P.business||U.email;
 const left=Math.max(0,Math.ceil((new Date(P.trial_ends_at)-Date.now())/864e5)),pay=PAY[P.plan],co=u=>{try{const x=new URL(u);x.searchParams.set("email",U.email);return x.href}catch{return u}};
 $("#bn").innerHTML=P.status=="active"?`<span><b>${esc(P.plan)} plan active.</b> Thank you.</span>`:`<span>${left?`<b>${left} days left</b> in your free trial.`:`<b>Your trial has ended.</b> Activate to keep adding data.`} Use the same email (${esc(U.email)}) at checkout.</span>${pay?`<a class="btn s" href="${esc(co(pay))}">Activate ${esc(P.plan)}</a>`:""}`;
 $("#tabs").innerHTML=[["ov","Financial statements"],["inv","Invoices"],["cb","Cash book"],["dl","Deadlines"]].concat(P.plan=="Firm"?[["cl","Clients"]]:[]).map(t=>`<button data-t="${t[0]}">${t[1]}</button>`).join("");render()}
