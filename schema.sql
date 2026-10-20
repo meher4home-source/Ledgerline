@@ -87,3 +87,23 @@ create or replace function public.complete_onboarding(nm text,bz text,c text,p t
     plan=case when p in ('Starter','Growth','Firm') then p else 'Growth' end,
     problems=coalesce(pb,'[]'::jsonb), onboarded=true
   where id=auth.uid() and onboarded=false $$;
+
+-- heals accounts created before the tables existed (Google or email): creates the missing profile row
+create or replace function public.ensure_profile() returns void language sql security definer set search_path=public as $$
+  insert into public.profiles(id,email,name)
+  select id,email,coalesce(raw_user_meta_data->>'name',raw_user_meta_data->>'full_name') from auth.users where id=auth.uid()
+  on conflict (id) do nothing $$;
+
+-- ===== v5: budgets =====
+create table if not exists public.budgets (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade default auth.uid(),
+  client_id uuid references public.clients(id) on delete cascade,
+  category text not null, monthly_amount numeric not null check (monthly_amount > 0),
+  created_at timestamptz default now());
+alter table public.budgets enable row level security;
+drop policy if exists "bud read" on public.budgets;  create policy "bud read" on public.budgets for select using (user_id=auth.uid());
+drop policy if exists "bud write" on public.budgets;
+create policy "bud write" on public.budgets for insert with check (user_id=auth.uid() and public.can_write()
+  and (client_id is null or exists(select 1 from public.clients c where c.id=client_id and c.user_id=auth.uid())));
+drop policy if exists "bud del" on public.budgets;   create policy "bud del" on public.budgets for delete using (user_id=auth.uid());

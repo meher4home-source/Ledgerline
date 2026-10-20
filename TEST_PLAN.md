@@ -19,6 +19,15 @@
 | 14 | Sign out, Log in tab, wrong password | "Wrong email or password. New here? Tap Sign up." |
 | 15 | Sign up tab with existing email | Switches to Log in: "already has an account" |
 
+### Insights and CSV (after steps 8 to 11 above)
+| # | Do this | Expect |
+|---|---|---|
+| 16 | Open Insights | Last 6 months table, Budget, Cash forecast, Who owes you, Health check, Download |
+| 17 | Budget: Rent, 100, Save | Rent row: Budget ₹100, Spent ₹80, Left ₹20 |
+| 18 | Cash forecast | First month closing cash ₹1,312.00 (1,156 + 236 income - 80 spending) |
+| 19 | Download the three CSV buttons | Files open in Excel with the ₹ sign intact |
+| 20 | Cash book: Import CSV with columns Date, Description, Amount (negative = money out) | Rows appear, duplicates skipped, balance sheet still balances |
+
 ## B. Real site
 | # | Do this | Expect |
 |---|---|---|
