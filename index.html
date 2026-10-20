@@ -1,115 +1,37 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="theme-color" content="#0B1220"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ledgerline: accounting and compliance, set up around your business</title><meta name="description" content="Invoices, cash book, profit and loss and tax deadlines for small businesses in India, US, UK, Canada, Australia, UAE and Singapore. 14-day free trial."><meta property="og:title" content="Ledgerline: accounting set up around your business"><meta property="og:type" content="website">
-<meta name="description" content="Tell us your country and what you need. Get a personal accounting workspace with bookkeeping, GST, TDS, ROC, 1099 and sales tax support. 14-day free trial.">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<script>if(/access_token=|[?&]code=|type=recovery|error_description=/.test(location.hash+location.search))location.replace("/app"+location.search+location.hash)</script>
+<title>Ledgerline: simple accounting for small businesses and accountants</title>
+<meta name="description" content="Invoices, cash book, live profit and loss, balance sheet and a tax deadline calendar for small businesses and accountants in India, US, UK, Canada, Australia, UAE and Singapore. 14-day free trial.">
+<meta property="og:title" content="Ledgerline: simple accounting for small businesses and accountants"><meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20rx%3D%2222%22%20fill%3D%22%230B1220%22/%3E%3Crect%20x%3D%228%22%20y%3D%2214%22%20width%3D%2216%22%20height%3D%2236%22%20rx%3D%228%22%20fill%3D%22%23fff%22/%3E%3Cpath%20d%3D%22M24%2042H60Q80%2042%2080%2022%22%20fill%3D%22none%22%20stroke%3D%22%2310B981%22%20stroke-width%3D%2212%22/%3E%3Cpath%20d%3D%22M67%2024L80%207L93%2024Z%22%20fill%3D%22%2310B981%22%20stroke%3D%22%2310B981%22%20stroke-width%3D%223%22%20stroke-linejoin%3D%22round%22/%3E%3Crect%20x%3D%228%22%20y%3D%2258%22%20width%3D%2276%22%20height%3D%2214%22%20rx%3D%227%22%20fill%3D%22%23fff%22/%3E%3Crect%20x%3D%228%22%20y%3D%2280%22%20width%3D%2276%22%20height%3D%2214%22%20rx%3D%227%22%20fill%3D%22%2310B981%22/%3E%3C/svg%3E"><meta name="theme-color" content="#0B1220">
 <style>
-:root{--ink:#0B1220;--ink2:#141C2F;--g:#10B981;--gd:#047857;--gold:#C9A227;--bg:#F4F6F8;--rule:#E3E7EC;--m:#586174}
-*{box-sizing:border-box}body{margin:0;font:16px/1.55 'Instrument Sans',system-ui,sans-serif;color:var(--ink);background:var(--bg)}
-h1,h2,h3{font-family:'Bricolage Grotesque',sans-serif;line-height:1.1;margin:0;letter-spacing:-.015em}
-.w{max-width:1080px;margin:0 auto;padding:0 22px}.hide{display:none!important}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--g);color:#04251B;border:0;border-radius:12px;padding:14px 22px;font:600 16px 'Instrument Sans';cursor:pointer;text-decoration:none}
-.btn:hover{filter:brightness(1.06)}.btn.d{background:var(--ink);color:#fff}.btn.o{background:transparent;color:inherit;border:1.5px solid currentColor}.btn:disabled{opacity:.55;cursor:wait}
-.dark{background:radial-gradient(900px 400px at 85% -10%,#12324A 0,transparent 60%),var(--ink);color:#fff}
-nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0}.logo{font:800 22px 'Bricolage Grotesque'}.logo i{color:var(--g);font-style:normal}
-.hero{padding:56px 0 84px}.hero h1{font-size:clamp(38px,6.4vw,70px);max-width:15ch}.hero h1 em{font-style:normal;color:var(--g)}
-.hero p{font-size:20px;color:#B9C3D6;max-width:52ch;margin:20px 0 30px}.hero .b{display:flex;gap:12px;flex-wrap:wrap}
-.trust{display:flex;gap:26px;flex-wrap:wrap;margin-top:34px;color:#8FA0BA;font-size:14px}
-.feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;padding:54px 0}.feat{background:#fff;border:1px solid var(--rule);border-radius:16px;padding:24px}.feat h3{font-size:20px;margin-bottom:6px}.feat p{margin:0;color:var(--m)}
-/* wizard */
-.wiz{max-width:720px;margin:0 auto;padding:30px 22px 70px}.prog{height:6px;background:var(--rule);border-radius:9px;overflow:hidden;margin:6px 0 30px}.prog div{height:100%;background:var(--g);transition:width .3s}
-.wiz h2{font-size:clamp(28px,5vw,40px);margin-bottom:8px}.sub{color:var(--m);margin:0 0 24px}
-.opts{display:grid;gap:12px}.opts.two{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-.opt{background:#fff;border:1.5px solid var(--rule);border-radius:14px;padding:18px 20px;text-align:left;cursor:pointer;font:inherit;color:inherit;display:flex;justify-content:space-between;gap:14px;align-items:center;width:100%}
-.opt:hover{border-color:var(--ink)}.opt.on{border-color:var(--g);background:#ECFDF5;box-shadow:0 0 0 3px rgba(16,185,129,.18)}.opt b{display:block}.opt small{color:var(--m)}
-.opt .tick{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--rule);flex:none;display:grid;place-items:center;font-size:13px;color:#fff}.opt.on .tick{background:var(--g);border-color:var(--g)}
-.pr{font:800 26px 'Bricolage Grotesque';white-space:nowrap}.pr small{font:500 13px 'Instrument Sans'}
-.rec{display:inline-block;background:var(--gold);color:#241B00;font-size:12px;font-weight:700;border-radius:99px;padding:2px 9px;margin-left:8px;vertical-align:middle}
-.nav2{display:flex;justify-content:space-between;margin-top:28px;gap:12px}
-label{display:block;font-weight:600;margin:14px 0 5px}input,textarea{width:100%;padding:14px;border:1.5px solid var(--rule);border-radius:12px;font:inherit;background:#fff}
-.err{color:#B91C1C;font-weight:600;margin-top:12px;min-height:22px}.hp{position:absolute;left:-9999px}.fine{font-size:13px;color:var(--m);margin-top:14px}
-/* dashboard */
-.top{background:var(--ink);color:#fff}.top .w{display:flex;justify-content:space-between;align-items:center;padding:16px 22px}.who{font-size:14px;color:#B9C3D6;display:flex;gap:14px;align-items:center}
-.who button{background:none;border:1px solid #3A465E;color:#fff;border-radius:9px;padding:7px 12px;font:inherit;cursor:pointer}
-.dh{padding:34px 0 70px}.dh h1{font-size:clamp(28px,4.4vw,44px)}.dh p{color:#B9C3D6;margin:8px 0 0}
-.dg{display:grid;grid-template-columns:1.6fr 1fr;gap:20px;margin-top:-44px;padding-bottom:60px;align-items:start}
-.card{background:#fff;border:1px solid var(--rule);border-radius:18px;padding:24px;box-shadow:0 8px 28px rgba(11,18,32,.06)}.card h3{font-size:20px;margin-bottom:14px}.stack{display:grid;gap:20px}
-.trial{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.days{font:800 44px 'Bricolage Grotesque';line-height:1}.days small{font:500 15px 'Instrument Sans';color:var(--m)}
-.bar{height:8px;background:var(--rule);border-radius:9px;overflow:hidden;margin-top:14px}.bar div{height:100%;background:var(--g)}
-.chk{display:flex;gap:10px;align-items:flex-start;padding:8px 0;cursor:pointer}.chk input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--gd);flex:none}.chk.done span{text-decoration:line-through;color:var(--m)}
-.svc+.svc{border-top:1px solid var(--rule);margin-top:14px;padding-top:14px}.svc h4{margin:0 0 4px;font-size:17px}
-.dl{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--rule)}.dl:first-of-type{border-top:0}.dl b{white-space:nowrap}
-.tool .r{display:grid;grid-template-columns:1fr 1fr;gap:10px}.tool .o{background:#ECFDF5;border-radius:12px;padding:12px;margin-top:12px;font-size:15px}
-@media(max-width:860px){.dg{grid-template-columns:1fr}}
-:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+:root{--ink:#0B1220;--g:#10B981;--m:#586174;--r:#E3E7EC}*{box-sizing:border-box}
+body{margin:0;font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:#fff}
+.w{max-width:1000px;margin:0 auto;padding:0 20px}.dark{background:var(--ink);color:#fff}
+nav{display:flex;justify-content:space-between;align-items:center;padding:16px 0;gap:12px}
+.logo{display:flex;align-items:center;font-weight:800;font-size:22px;color:#fff;text-decoration:none}.logo svg{margin-right:8px}.logo i{color:var(--g);font-style:normal}
+.btn{display:inline-block;background:var(--g);color:#04251B;border-radius:10px;padding:13px 22px;font-weight:700;text-decoration:none}
+.btn.o{background:none;color:#fff;border:1px solid #fff;padding:9px 16px}
+h1{font-size:clamp(34px,6vw,56px);line-height:1.1;margin:36px 0 16px;letter-spacing:-.02em}h1 em{color:var(--g);font-style:normal}
+.hero{padding-bottom:64px}.hero p{color:#B9C3D6;max-width:620px;font-size:18px;margin:0 0 24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;padding:48px 0 16px}
+.card{border:1px solid var(--r);border-radius:14px;padding:20px}.card h3{margin:0 0 6px;font-size:18px}.card p{margin:0;color:var(--m)}
+section{padding:32px 0 48px}h2{font-size:30px;margin:0 0 16px}
+.t{overflow-x:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:12px 6px;border-bottom:1px solid var(--r)}th{color:var(--m);font-size:13px;text-transform:uppercase}
+.note{color:var(--m);font-size:14px}footer{padding:28px 0;color:var(--m);font-size:14px;border-top:1px solid var(--r)}footer a{color:var(--m)}
 </style></head><body>
-
-<div id="landing"><div class="dark"><div class="w"><nav><div class="logo"><img src="/logo-light.svg" alt="" width="26" height="26" style="vertical-align:-5px;margin-right:6px">Ledger<i>line</i></div><span><a href="app.html#login" style="color:#fff;margin-right:16px">Sign in</a><button class="btn o" data-go="wiz">Start free trial</button></span></nav>
-<div class="hero"><h1>Your accounts, set up <em>around your business.</em></h1>
-<p>Tell us your country and what is keeping you up at night. We build your workspace, your deadlines and your plan around it. Bookkeeping, GST, TDS, ROC, 1099 and sales tax, handled monthly.</p>
-<div class="b"><button class="btn" data-go="wiz">Start 14-day free trial</button><a class="btn o" id="wa" href="#">Talk on WhatsApp</a></div>
-<div class="trust"><span>No card needed</span><span>7 countries supported</span><span>Export your data anytime</span><span><a href="terms" style="color:inherit">Terms</a> · <a href="privacy" style="color:inherit">Privacy</a></span></div></div></div></div>
-<div class="w"><div class="feats">
-<div class="feat"><h3>Built from your answers</h3><p>Pick your country and problems. Your dashboard shows only what applies to you.</p></div>
-<div class="feat"><h3>Deadlines on autopilot</h3><p>GST, TDS, PF/ESI, 1099 and sales tax dates, counted down for you.</p></div>
-<div class="feat"><h3>Books that balance themselves</h3><p>Invoices and cash entries flow into a live profit and loss and balance sheet.</p></div>
-<div class="feat"><h3>One simple monthly fee</h3><p>Pay yearly and get two months free. Cancel any time.</p></div></div></div></div>
-
-<div id="wiz" class="hide"><div class="top"><div class="w"><div class="logo"><img src="/logo-light.svg" alt="" width="26" height="26" style="vertical-align:-5px;margin-right:6px">Ledger<i>line</i></div><button class="btn o" style="padding:8px 14px" data-go="landing">Close</button></div></div>
-<div class="wiz"><div class="prog"><div id="pg"></div></div><div id="step"></div></div></div>
-
-<div id="dash" class="hide"><div class="top"><div class="w"><div class="logo"><img src="/logo-light.svg" alt="" width="26" height="26" style="vertical-align:-5px;margin-right:6px">Ledger<i>line</i></div><div class="who"><span id="uname"></span><button id="out">Sign out</button></div></div></div>
-<div class="dark dh"><div class="w"><h1 id="hi"></h1><p id="hs"></p></div></div>
-<div class="w"><div class="dg"><div class="stack" id="main"></div><div class="stack" id="side"></div></div></div></div>
-
-<script>
-const CFG={whatsapp:"91XXXXXXXXXX",pay:{} /* {"Growth":"https://your-payment-link"} */};
-const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const C={in:{n:"India",s:"₹",f:v=>"₹"+v.toLocaleString("en-IN")},us:{n:"United States",s:"$",f:v=>"$"+v},uk:{n:"United Kingdom",s:"£",f:v=>"£"+v},ca:{n:"Canada",s:"C$",f:v=>"C$"+v},au:{n:"Australia",s:"A$",f:v=>"A$"+v},ae:{n:"UAE",s:"AED ",f:v=>"AED "+v.toLocaleString("en-US")},sg:{n:"Singapore",s:"S$",f:v=>"S$"+v},gl:{n:"Other country",s:"$",f:v=>"$"+v}};
-const PB={in:[["gst","GST return filing (GSTR-1 / 3B)"],["tds","TDS return, Form 16/16A"],["bk","Bookkeeping and MIS"],["itr","ITR filing, business or professional"],["roc","ROC annual filing, Pvt Ltd / LLP"],["pf","PF/ESI and payroll sheet"],["fm","Startup financial model"]],
-us:[["w2","1099 / W-2 prep"],["st","Sales tax returns"],["bk","Monthly bookkeeping and close"],["pr","Payroll sheets and quarterly reports"],["fm","Startup financial model"]],
-uk:[["vat","VAT returns (MTD)"],["bk","Monthly bookkeeping and close"],["pr","Payroll and RTI reports"],["fm","Startup financial model"],["lp","Landing page and booking form"]],gl:[["bk","Monthly bookkeeping"],["fm","Startup financial model"],["pr","Payroll sheets"],["lp","Landing page and booking form"]]};
-PB.ca=PB.au=PB.ae=PB.sg=PB.gl;
-const PL=[{n:"Starter",p:{in:499,us:19,uk:15,ca:25,au:29,ae:69,sg:25,gl:19},d:"Invoices, cash book, P&L and balance sheet. Up to 100 entries a month."},{n:"Growth",p:{in:1499,us:49,uk:39,ca:65,au:75,ae:179,sg:65,gl:49},d:"Up to 1,000 entries a month, deadline reminders, full data export."},{n:"Firm",p:{in:4999,us:149,uk:119,ca:199,au:229,ae:549,sg:199,gl:149},d:"Unlimited entries. Multi-client workspaces (early access)."}];
-const TASK={vat:["Share your VAT number and Gateway access","Upload sales and purchase invoices","Approve the VAT return before submission"],gst:["Share your GSTIN and portal access","Upload sales and purchase invoices by the 5th","Review the draft GSTR-1 and GSTR-3B"],tds:["Share TAN and deductee list","Upload payment challans","Approve the quarterly TDS return"],bk:["Connect or upload your bank statements","Share last 3 months of invoices and bills","Review your first monthly P&L"],itr:["Share PAN and last year's return","Upload books, bank and tax statements","Approve the computation before filing"],roc:["Share CIN and last balance sheet","Upload board and AGM details","Approve annual forms before filing"],pf:["Share the employee list and salary sheet","Confirm monthly attendance","Approve PF/ESI challans"],fm:["Share your business model and target market","Provide current numbers, if any","Review the 3-year projection draft"],w2:["Collect W-9s from contractors","Share payment totals by payee","Approve forms before filing"],st:["Share states where you collect tax","Upload monthly sales reports","Approve each return before filing"],pr:["Share the employee roster and pay rates","Upload hours or pay run data","Review quarterly payroll reports"],lp:["Share your brand, offer and contact details","Approve the page draft","Connect the booking form"]};
-const CAL={gst:[["GSTR-1 due","m",11],["GSTR-3B due","m",20]],tds:[["TDS deposit due","m",7]],pf:[["PF/ESI due","m",15]],w2:[["1099-NEC / W-2 due","y",[[1,31]]]],st:[["Sales tax return (most states)","m",20]],pr:[["Form 941 due","y",[[1,31],[4,30],[7,31],[10,31]]]],itr:[["ITR due date (non-audit)","y",[[7,31]]]]};
-const KEY="ledgerline";let S=JSON.parse(localStorage.getItem(KEY)||"{}"),W={step:0,c:null,pb:[],plan:null};
-const save=()=>localStorage.setItem(KEY,JSON.stringify(S));
-function view(v){if(v=="wiz"){location.href="app.html#signup";return}["landing","wiz","dash"].forEach(x=>$("#"+x).classList.toggle("hide",x!=v));scrollTo(0,0);if(v=="wiz"){W={step:0,c:null,pb:[],plan:null};step()}if(v=="dash")dash()}
-document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g)view(g.dataset.go)});
-if(CFG.whatsapp.includes("XXXX"))$("#wa").classList.add("hide");$("#wa").href="https://wa.me/"+CFG.whatsapp+"?text="+encodeURIComponent("Hi, I want to know about Ledgerline");
-const rec=n=>n<=1?0:n<=3?1:2;
-function step(){const st=W.step;$("#pg").style.width=(st+1)*25+"%";let h="";
-if(st==0){h=`<h2>Where is your business based?</h2><p class="sub">We'll set up the right filings, currency and deadlines.</p><div class="opts">${Object.entries(C).map(([k,v])=>`<button class="opt ${W.c==k?"on":""}" data-c="${k}"><b>${v.n}</b><span class="tick">✓</span></button>`).join("")}</div>`}
-if(st==1){h=`<h2>What do you need help with?</h2><p class="sub">Choose everything that applies. You can change this later.</p><div class="opts">${PB[W.c].map(([k,l])=>`<button class="opt ${W.pb.includes(k)?"on":""}" data-p="${k}"><b>${l}</b><span class="tick">✓</span></button>`).join("")}</div>`}
-if(st==2){if(W.plan==null)W.plan=rec(W.pb.length);h=`<h2>Your recommended plan</h2><p class="sub">Free for 14 days. You pay nothing until your trial ends.</p><div class="opts">${PL.map((p,i)=>`<button class="opt ${W.plan==i?"on":""}" data-pl="${i}"><span><b>${p.n}${i==rec(W.pb.length)?'<span class="rec">Recommended</span>':""}</b><small>${p.d}</small></span><span class="pr"><small style="display:block;text-decoration:line-through;color:#8A93A3">${C[W.c].f(Math.round(p.p[W.c]*4/10)*10)}</small>${C[W.c].f(p.p[W.c])}<small>/mo</small></span></button>`).join("")}</div><p class="fine">Struck-through price: roughly what a part-time in-house accountant costs (estimate). Pay yearly after your trial and get 2 months free.</p>`}
-if(st==3){h=`<h2>Your workspace is ready to create</h2><p class="sub">${PB[W.c].filter(x=>W.pb.includes(x[0])).length} services for ${C[W.c].n}, ${PL[W.plan].n} plan, 14 days free. Next, create your secure login.</p><p class="fine">No card needed. Your invoices, books and statements are saved to your account.</p>`}
-const last=st==3;$("#step").innerHTML=h+`<div class="nav2"><button class="btn o" id="bk" ${st?"":"style='visibility:hidden'"}>Back</button><button class="btn" id="nx">${last?"Create my login":"Continue"}</button></div>`;
-$("#bk").onclick=()=>{W.step--;step()};$("#nx").onclick=next}
-$("#step").addEventListener("click",e=>{const o=e.target.closest(".opt");if(!o)return;const d=o.dataset;
-if(d.c){W.c=d.c;W.pb=[];W.plan=null}if(d.p){const i=W.pb.indexOf(d.p);i<0?W.pb.push(d.p):W.pb.splice(i,1);W.plan=null}if(d.pl)W.plan=+d.pl;
-const y=scrollY;step();scrollTo(0,y)});
-async function next(){const st=W.step;if(st==0&&!W.c)return;if(st==1&&!W.pb.length){alert("Choose at least one service.");return}
-if(st<3){W.step++;step();return}
-localStorage.setItem("ledgerline_wiz",JSON.stringify({c:W.c,pb:W.pb,plan:PL[W.plan].n}));location.href="app.html"}
-function nextDate(ev){const t=new Date();t.setHours(0,0,0,0);let c=[];const y=t.getFullYear();
-if(ev[1]=="m"){for(let m=0;m<2;m++)c.push(new Date(y,t.getMonth()+m,ev[2]))}else{for(const yy of[y,y+1])for(const[m,d]of ev[2])c.push(new Date(yy,m-1,d))}
-return c.filter(x=>x>=t).sort((a,b)=>a-b)[0]}
-function dash(){const c=C[S.c],labels=Object.fromEntries(PB[S.c]),first=S.name.split(" ")[0];
-const left=Math.max(0,Math.ceil((new Date(S.trialEnds)-Date.now())/864e5)),pl=PL.find(p=>p.n==S.plan)||PL[0];
-$("#uname").textContent=S.biz;$("#hi").textContent="Welcome, "+first+".";
-$("#hs").textContent="Your workspace for "+S.biz+" is ready: "+S.pb.length+" service"+(S.pb.length>1?"s":"")+" set up for "+c.n+".";
-const tasks=S.pb.flatMap(k=>TASK[k].map((_,i)=>k+i)),dn=tasks.filter(k=>S.done[k]).length;
-$("#main").innerHTML=`<div class="card"><div class="trial"><div><div class="days">${left}<small> days left in your free trial</small></div></div><div>${CFG.pay[S.plan]?`<a class="btn" href="${esc(CFG.pay[S.plan])}">Activate ${esc(S.plan)}, ${c.f(pl.p[S.c])}/mo</a>`:`<a class="btn" id="act" href="#">Activate ${esc(S.plan)}, ${c.f(pl.p[S.c])}/mo</a>`}</div></div><div class="bar"><div style="width:${Math.max(4,100-left/14*100)}%"></div></div></div>
-<div class="card"><h3>Your setup plan <small style="font:500 14px 'Instrument Sans';color:var(--m)">${dn} of ${tasks.length} done</small></h3>${S.pb.map(k=>`<div class="svc"><h4>${esc(labels[k])}</h4>${TASK[k].map((t,i)=>`<label class="chk ${S.done[k+i]?"done":""}" style="margin:0"><input type="checkbox" data-t="${k+i}" ${S.done[k+i]?"checked":""}><span>${t}</span></label>`).join("")}</div>`).join("")}</div>`;
-const ev=S.pb.flatMap(k=>(CAL[k]||[]).map(e=>[e[0],nextDate(e)])).filter(e=>e[1]).sort((a,b)=>a[1]-b[1]);
-$("#side").innerHTML=`<div class="card"><h3>Upcoming deadlines</h3>${ev.length?ev.map(e=>`<div class="dl"><span>${e[0]}</span><b>${e[1].toLocaleDateString("en-GB",{day:"numeric",month:"short"})}</b></div>`).join(""):"<p style='color:var(--m);margin:0'>Your deadlines will appear once your team confirms your filings.</p>"}</div>
-<div class="card tool"><h3>Tax calculator</h3><div class="r"><div><label style="margin-top:0">Amount</label><input id="ta" type="number" value="10000"></div><div><label style="margin-top:0">Tax rate %</label><input id="tr" type="number" value="${S.c=="in"?18:7}"></div></div><label>Amount is</label><select id="tk" style="width:100%;padding:12px;border:1.5px solid var(--rule);border-radius:12px;font:inherit"><option>before tax</option><option>including tax</option></select><div class="o" id="to"></div></div>
-<div class="card"><h3>Your data is yours</h3><p style="color:var(--m);margin:0 0 12px">Download everything we hold for your workspace at any time.</p><button class="btn d" id="ex">Export my data</button></div>`;
-const calc=()=>{const a=+$("#ta").value,r=+$("#tr").value/100,inc=$("#tk").value[0]=="i",b=inc?a/(1+r):a;$("#to").innerHTML=`Base ${c.s}${b.toFixed(2)}<br>Tax ${c.s}${(b*r).toFixed(2)}<br><b>Total ${c.s}${(b*(1+r)).toFixed(2)}</b>`};$(".tool").oninput=calc;calc();
-$("#ex").onclick=()=>{const u=URL.createObjectURL(new Blob([JSON.stringify(S,null,2)],{type:"application/json"})),a=document.createElement("a");a.href=u;a.download="ledgerline-data.json";a.click()};
-const act=$("#act");if(act)act.href="https://wa.me/"+CFG.whatsapp+"?text="+encodeURIComponent("I want to activate the "+S.plan+" plan for "+S.biz)}
-$("#main").addEventListener("change",e=>{const t=e.target.dataset.t;if(!t)return;S.done[t]=e.target.checked;save();dash()});
-$("#out").onclick=()=>{localStorage.removeItem(KEY);S={};view("landing")};
-
-</script></body></html>
+<div class="dark"><div class="w hero"><nav><a class="logo" href="/"><svg width="28" height="28" viewBox="0 0 100 100" aria-hidden="true" style="vertical-align:-5px;margin-right:6px"><rect x="8" y="14" width="16" height="36" rx="8" fill="#fff"/><path d="M24 42H60Q80 42 80 22" fill="none" stroke="#10B981" stroke-width="12"/><path d="M67 24L80 7L93 24Z" fill="#10B981" stroke="#10B981" stroke-width="3" stroke-linejoin="round"/><rect x="8" y="58" width="76" height="14" rx="7" fill="#fff"/><rect x="8" y="80" width="76" height="14" rx="7" fill="#10B981"/></svg>Ledger<i>line</i></a><span style="display:flex;align-items:center;gap:14px;white-space:nowrap"><a href="/app#login" style="color:#fff">Log in</a><a class="btn o" href="/app#signup">Start free trial</a></span></nav>
+<h1>Simple accounts for your <em>business or your clients.</em></h1>
+<p>Create invoices, keep a cash book, and watch your profit and loss and balance sheet update on their own. Built for small businesses and accountants in 7 countries.</p>
+<a class="btn" href="/app#signup">Start 14-day free trial</a> <span class="note" style="margin-left:12px;color:#B9C3D6">No card needed</span></div></div>
+<div class="w"><div class="grid">
+<div class="card"><h3>Invoices in seconds</h3><p>Add items and tax, mark an invoice paid, print it as a PDF.</p></div>
+<div class="card"><h3>Live statements</h3><p>Profit and loss and balance sheet update as you add entries.</p></div>
+<div class="card"><h3>Deadline calendar</h3><p>Your country's main filing dates in one place.</p></div>
+<div class="card"><h3>Built for accountants</h3><p>The Firm plan keeps up to 50 clients' books separate in one login.</p></div></div>
+<section><h2>Pricing</h2><div class="t"><table><tr><th>Plan</th><th>Best for</th><th>India</th><th>US</th></tr>
+<tr><td><b>Growth</b></td><td>One business</td><td>₹1,499/month</td><td>$49/month</td></tr>
+<tr><td><b>Firm</b></td><td>Accountants, 50 clients</td><td>₹4,999/month</td><td>$149/month</td></tr></table></div>
+<p class="note">Every plan starts with a 14-day free trial, no card needed. Prices for the UK, Canada, Australia, UAE and Singapore are shown in local currency when you sign up.</p>
+<a class="btn" href="/app#signup">Start free trial</a></section></div>
+<footer><div class="w">© Ledgerline · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></div></footer></body></html>

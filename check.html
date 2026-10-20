@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ledgerline setup check</title></head>
+<body style="font:16px/1.5 system-ui;max-width:640px;margin:30px auto;padding:0 16px"><h2>Ledgerline setup check</h2><div id="o">Checking...</div>
+<script>
+(async()=>{const R=[];let bad=0;const add=(ok,t,fix)=>{if(!ok)bad++;R.push(`<p>${ok?"✅":"❌"} <b>${t}</b>${ok?"":"<br><small>"+fix+"</small>"}</p>`)};
+try{const c=await(await fetch("/config.js",{cache:"no-store"})).text(),g=k=>(c.match(new RegExp(k+'\\s*:\\s*"([^"]*)"'))||[])[1]||"",U=g("SB_URL"),K=g("SB_KEY");
+const okc=/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(U)&&K.length>20&&!/PASTE/.test(K);add(okc,"config.js has your Supabase URL and anon key","Open config.js, paste the anon public key (Supabase > Project Settings > API), upload config.js once.");
+if(okc){const H={apikey:K,Authorization:"Bearer "+K};
+try{const s=await(await fetch(U+"/auth/v1/settings",{headers:H})).json();
+add(!!(s.external&&s.external.email),"Email login is ON","Supabase > Authentication > Providers > Email: turn ON.");
+add(!!s.mailer_autoconfirm,"Confirm email is OFF (signup is one step)","Supabase > Authentication > Providers > Email: turn Confirm email OFF, then delete old test users in Authentication > Users.");
+add(!!(s.external&&s.external.google),"Google login is ON","Supabase > Authentication > Providers > Google: paste Client ID and Secret, enable.")}catch(e){add(false,"Could not reach Supabase","Check SB_URL in config.js.")}
+for(const t of["profiles","clients"]){try{const r=await fetch(U+"/rest/v1/"+t+"?select=id&limit=1",{headers:H});add(r.ok,"Database table '"+t+"' exists","Supabase > SQL Editor: run ALL of schema.sql.")}catch(e){add(false,"Table "+t,"Run schema.sql.")}}}
+try{const r=await fetch("/api/dodo-webhook");add(r.status===405,"Payment webhook is deployed","Upload the api folder (api/dodo-webhook.js) to the repo root. Files must be inside api/.")}catch(e){add(false,"Payment webhook","Upload the api folder.")}
+add(!!(g("Growth")&&g("Firm")),"Payment links are set (Growth and Firm)","Paste your two Dodo checkout links into config.js.");
+add(!!(g("COMPANY")&&g("SUPPORT_EMAIL")&&g("COUNTRY")),"Company, country and support email are set","Fill COMPANY, COUNTRY, SUPPORT_EMAIL in config.js (shown on Terms and Privacy).");
+R.push(`<p>ℹ️ In Supabase > Authentication > URL Configuration set<br>Site URL: <code>${location.origin}</code><br>Redirect URL: <code>${location.origin}/app</code></p>`)}
+catch(e){add(false,"Could not run the check","Open this page on your deployed site.")}
+document.getElementById("o").innerHTML=R.join("")+`<h3>${bad?bad+" item(s) to fix":"All good. Ready for customers."}</h3>`})();
+</script></body></html>
