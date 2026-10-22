@@ -107,3 +107,21 @@ drop policy if exists "bud write" on public.budgets;
 create policy "bud write" on public.budgets for insert with check (user_id=auth.uid() and public.can_write()
   and (client_id is null or exists(select 1 from public.clients c where c.id=client_id and c.user_id=auth.uid())));
 drop policy if exists "bud del" on public.budgets;   create policy "bud del" on public.budgets for delete using (user_id=auth.uid());
+
+-- ===== v6: saved records (toolkit work) =====
+create table if not exists public.records (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade default auth.uid(),
+  client_id uuid references public.clients(id) on delete cascade,
+  kind text not null, title text not null, data jsonb not null default '{}',
+  created_at timestamptz default now(), check (pg_column_size(data) < 200000));
+alter table public.records enable row level security;
+drop policy if exists "rec read" on public.records;  create policy "rec read" on public.records for select using (user_id=auth.uid());
+drop policy if exists "rec write" on public.records;
+create policy "rec write" on public.records for insert with check (user_id=auth.uid() and public.can_write()
+  and (client_id is null or exists(select 1 from public.clients c where c.id=client_id and c.user_id=auth.uid())));
+drop policy if exists "rec del" on public.records;   create policy "rec del" on public.records for delete using (user_id=auth.uid());
+
+-- ===== v7: edit saved records and register rows =====
+drop policy if exists "rec edit" on public.records;
+create policy "rec edit" on public.records for update using (user_id=auth.uid()) with check (user_id=auth.uid() and public.can_write());
