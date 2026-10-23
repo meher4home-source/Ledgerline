@@ -13,7 +13,7 @@ add(!!s.mailer_autoconfirm,"Confirm email is OFF (signup is one step)","Supabase
 add(!!(s.external&&s.external.google),"Google login is ON","Supabase > Authentication > Providers > Google: paste Client ID and Secret, enable.")}catch(e){add(false,"Could not reach Supabase","Check SB_URL in config.js.")}
 for(const t of["profiles","clients","budgets","records"]){try{const r=await fetch(U+"/rest/v1/"+t+"?select=id&limit=1",{headers:H});add(r.ok,"Database table '"+t+"' exists","Supabase > SQL Editor: run ALL of schema.sql.")}catch(e){add(false,"Table "+t,"Run schema.sql.")}}}
 try{const r=await fetch("/api/dodo-webhook");add(r.status===405,"Payment webhook is deployed","Upload the api folder (api/dodo-webhook.js) to the repo root. Files must be inside api/.")}catch(e){add(false,"Payment webhook","Upload the api folder.")}
-add(!!(g("Growth")&&g("Firm")),"Payment links are set (Growth and Firm)","Paste your two Dodo checkout links into config.js.");
+try{const r=await fetch("/api/checkout");add(r.status===405,"Checkout is deployed","Upload api/checkout.js and set DODO_API_KEY, DODO_PRODUCTS and SUPABASE_ANON_KEY in Vercel.")}catch(e){add(false,"Checkout","Upload the api folder.")}
 add(!!(g("COMPANY")&&g("SUPPORT_EMAIL")&&g("COUNTRY")),"Company, country and support email are set","Fill COMPANY, COUNTRY, SUPPORT_EMAIL in config.js (shown on Terms and Privacy).");
 R.push(`<p>ℹ️ In Supabase > Authentication > URL Configuration set<br>Site URL: <code>${location.origin}</code><br>Redirect URL: <code>${location.origin}/app</code></p>`)}
 catch(e){add(false,"Could not run the check","Open this page on your deployed site.")}

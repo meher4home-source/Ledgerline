@@ -1,30 +1,30 @@
-# Ledgerline: deploy guide (in this order)
+# Ledgerline: final setup
 
-## 1. GitHub: clean start
-In your repo, DELETE everything in the root (checkout.js, cron.js, schema_v4.sql, webhook.js, dodo-webhook.js, demo.html, README.md, TEST_PLAN.md, schema.sql, old logos, old app.html, old index.html). Then upload ALL contents of `ledgerline-deploy` (drag the whole folder contents, including the `api` folder). Files in `api/` only work inside a folder named `api`.
-Never upload `ledgerline-docs` to the repo. It is for you only.
+## 1. GitHub (repo root = contents of `ledgerline-deploy`)
+Delete from the repo: old `app_*.html`, `schema*.sql`, `checkout.js`, `cron.js`, `webhook.js`, `dodo-webhook.js` at the root, `demo.html`, `README.md`, `TEST_PLAN.md`, `api/webhook.js`.
+Upload everything inside `ledgerline-deploy` (keep the `api` folder). `config.js`: fill `SB_KEY` once, never re-upload.
 
 ## 2. Supabase
-1. SQL Editor > New query > paste all of `schema.sql` > Run. Run it AGAIN whenever schema.sql is updated (it is safe to re-run). After it runs, Table Editor must show: profiles, invoices, entries, clients, budgets. Do NOT run schema_v4.sql.
-2. Authentication > Providers > Email: ON, **Confirm email OFF**. Then Authentication > Users: delete old test users.
-3. Authentication > URL Configuration: Site URL `https://YOURDOMAIN`, Redirect URL `https://YOURDOMAIN/app`.
-4. Project Settings > API Keys: copy the **Publishable key** (starts with `sb_publishable_`). If you only see legacy keys, copy the **anon** key (starts with `eyJ`). NEVER copy the secret / service_role key into config.js.
+1. SQL Editor: paste ALL of `schema.sql`, Run. It is safe to re-run and also sets up the private `docs` storage bucket.
+2. Authentication > Attack Protection: turn on CAPTCHA, provider Cloudflare Turnstile. Paste the Turnstile secret. Put the Turnstile SITE key in `config.js` as `TS: "0x..."`.
+3. Before real launch: Authentication > Providers > Email: Confirm email ON, and add free SMTP (Resend).
+4. URL Configuration: Site URL = your domain, Redirect URL = `https://YOURDOMAIN/app`.
 
-## 3. config.js (fill once, never overwrite)
-Open `config.js` on GitHub > edit: paste the Publishable key inside the quotes of `SB_KEY` (no spaces). Later also the two Dodo links in `PAY`, plus COMPANY, COUNTRY, SUPPORT_EMAIL. After this, updates to app.html or index.html never touch your keys.
+## 3. Dodo Payments
+Create 3 subscription products (Starter, Growth, Firm), each with a monthly price and optionally a yearly price. Developer > API: create an API key. Webhook URL `https://YOURDOMAIN/api/dodo-webhook`; events: payment.succeeded, subscription.active, subscription.renewed, subscription.cancelled, subscription.expired, subscription.on_hold.
 
-## 4. Vercel
-Framework preset: Other. Environment variables: `SUPABASE_URL`, `SUPABASE_SERVICE_KEY`, `DODO_WEBHOOK_SECRET`. Do not set a Node version. Hobby plan is non-commercial: move to Pro (or Cloudflare Pages) before charging.
+## 4. Vercel environment variables
+SUPABASE_URL, SUPABASE_ANON_KEY (the publishable key), SUPABASE_SERVICE_KEY, DODO_API_KEY, DODO_WEBHOOK_SECRET,
+DODO_PRODUCTS = {"Starter":{"m":"pdt_..","y":"pdt_.."},"Growth":{"m":"pdt_..","y":"pdt_.."},"Firm":{"m":"pdt_..","y":"pdt_.."}}
+Optional: APP_URL, DODO_API_BASE (use https://test.dodopayments.com while testing).
 
-## 5. Google login (optional, do after email works)
-Google Cloud > OAuth consent screen: app name Ledgerline, publish to production. Credentials > OAuth client (Web), redirect URI = callback shown in Supabase > Providers > Google. Paste Client ID and Secret into Supabase.
+## 5. Check, then remove
+Open `/check`, fix every red line. After launch, delete `check.html` from the repo.
 
-## 6. Dodo Payments
-Create two subscriptions (Growth, Firm), paste the links into config.js. Webhook URL `https://YOURDOMAIN/api/dodo-webhook`, events: payment.succeeded, subscription.active, subscription.renewed, subscription.cancelled. Send a test event.
+## Referrals
+A friend who signs up through `?ref=CODE` is stored in `profiles.problems`. To reward a referrer, run in SQL Editor:
+`select p.email as friend, p.status, p.problems from profiles p where p.problems::text like '%ref:%';`
+The code is the first 8 characters of the referrer's user id. Give the referrer a free month by hand.
 
-## 7. Check
-Open `https://YOURDOMAIN/check`. Fix every red line it shows. When all green, test signup yourself.
-Customers must pay with the same email they signed up with.
-
-## 8. If a user sees "We could not load your account"
-The tables are missing (schema.sql not run) or the user was created before it ran. Run schema.sql, then ask the user to refresh; the app repairs the missing profile by itself.
+## Not covered yet
+Email reminders, team logins, bank feeds, GST/TDS filing, payroll legal rules.
