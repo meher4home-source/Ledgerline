@@ -24,6 +24,8 @@ export default async function handler(req, res) {
   const filter = uid ? `id=eq.${uid}` : email ? `email=eq.${encodeURIComponent(email)}` : null;
   if (!filter) return res.status(200).json({ ok: true, skipped: 'no account' });
   const patch = { status }; if (status === 'active' && PLANS.includes(md.plan)) patch.plan = md.plan;
+  const packs = parseInt(md.packs, 10);
+  if (status === 'active' && md.plan === 'Firm' && packs >= 1 && packs <= 20) patch.client_limit = 50 * packs;
   const { SUPABASE_URL: U, SUPABASE_SERVICE_KEY: K } = process.env;
   const r = await fetch(`${U}/rest/v1/profiles?${filter}`, {
     method: 'PATCH',

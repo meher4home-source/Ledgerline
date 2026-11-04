@@ -3,3 +3,4 @@ Allow: /
 Disallow: /app
 Disallow: /check
 Sitemap: https://YOURDOMAIN.com/sitemap.xml
+Disallow: /portal
