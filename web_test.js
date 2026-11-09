@@ -1,11 +1,16 @@
 const {JSDOM}=require('/tmp/t/node_modules/jsdom'),fs=require('fs');const D='/mnt/user-data/outputs/ledgerline-deploy/';
 const sl=ms=>new Promise(r=>setTimeout(r,ms));let pass=0,fail=0;const ok=(c,m)=>{c?pass++:(fail++,console.log('FAIL:',m))};
 (async()=>{
-// landing calculator
-let dom=new JSDOM(fs.readFileSync(D+'index.html','utf8'),{runScripts:'dangerously',url:'http://localhost/'});let d=dom.window.document,$=s=>d.querySelector(s);
-ok($('#co').textContent.includes('₹20,000')&&$('#co').textContent.includes('₹4,999')&&$('#co').textContent.includes('4 times'),'calculator default: '+$('#co').textContent);
+// landing: global first (USD by default, even for an India visitor), other currencies one click away
+const tzFix=tz=>({beforeParse(win){const o=win.Intl.DateTimeFormat;win.Intl.DateTimeFormat=function(...a){const x=new o(...a);const r=x.resolvedOptions.bind(x);x.resolvedOptions=()=>({...r(),timeZone:tz});return x}}});
+let dom=new JSDOM(fs.readFileSync(D+'index.html','utf8'),{runScripts:'dangerously',url:'http://localhost/',...tzFix('Asia/Kolkata')});let d=dom.window.document,$=s=>d.querySelector(s);
+ok($('#co').textContent.includes('$1,600')&&$('#co').textContent.includes('$199')&&$('#co').textContent.includes('8 times'),'default calculator is USD: '+$('#co').textContent);
+ok($('#pr').textContent.includes('$199')&&!$('#pr').textContent.includes('₹'),'India visitor sees USD first');
+$('#curs button[data-c=INR]').click();ok($('#pr').textContent.includes('₹4,999')&&$('#co').textContent.includes('₹20,000')&&$('#co').textContent.includes('4 times'),'rupee button: '+$('#co').textContent);
 $('#cc').value=120;$('#cc').dispatchEvent(new dom.window.Event('input'));ok($('#co').textContent.includes('₹60,000')&&$('#co').textContent.includes('₹14,997'),'120 clients = 3 packs');
-$('#cu').value='$';$('#cr').value=30;$('#cc').value=40;$('#cc').dispatchEvent(new dom.window.Event('input'));ok($('#co').textContent.includes('$1,200')&&$('#co').textContent.includes('$199')&&$('#co').textContent.includes('6 times'),'dollar calculator: '+$('#co').textContent);
+$('#curs button[data-c=GBP]').click();ok($('#pr').textContent.includes('£149'),'pound button');$('#curs button[data-c=EUR]').click();ok($('#pr').textContent.includes('€185'),'euro button');
+$('#curs button[data-c=SGD]').click();ok($('#pr').textContent.includes('S$269'),'Singapore dollar button');
+$('#curs button[data-c=AED]').click();ok($('#pr').textContent.includes('AED 729'),'dirham button');
 ok(fs.readFileSync(D+'index.html','utf8').includes('manifest.webmanifest')&&fs.existsSync(D+'icon-192.png'),'installable icons');
 // portal page
 const data={business:'Acme CA',client:'Sharma Traders',brand:{name:'Acme Books',color:'#112233',logo:'https://x.test/l.png',note:'Thank you'},country:'in',cash:1156,invoices:[{number:'INV-2',client:'Beta',issue_date:'2026-10-01',subtotal:100,tax:5,total:105,status:'unpaid'}],entries:[{entry_date:new Date().toISOString().slice(0,10),type:'in',category:'Cash sales',amount:500,note:'Shop'},{entry_date:new Date().toISOString().slice(0,10),type:'out',category:'Rent',amount:200,note:'Rent'}]};

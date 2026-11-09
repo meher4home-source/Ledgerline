@@ -13,8 +13,11 @@
   {"Firm":{"m":{"in":"pdt_..","us":"pdt_..","default":"pdt_.."},"y":{"in":"pdt_..","us":"pdt_..","default":"pdt_.."}},
    "Growth":{"m":{"in":"pdt_..","us":"pdt_..","default":"pdt_.."}},"Starter":{"m":{"in":"pdt_..","us":"pdt_..","default":"pdt_.."}}}
   The Firm product price is for ONE pack of 50 clients. Buyers choose how many packs.
-  Region = the country saved at onboarding. `default` should be your USD (US) product. It is used for every region without its own product, and for India accounts whose request does not come from India.
-  Price table (must match the Dodo products): India Personal 299 / Business 1,499 / Accountant 4,999 (INR); US and Other country 12 / 59 / 199 (USD). UK, Canada, Australia, UAE and Singapore are shown in local currency in the app: either create a Dodo product for each of those regions too, or they will be charged the `default` USD product. Do not launch a region whose displayed price you have not created in Dodo.
+  Currencies: Dodo supports EUR and GBP natively, and SGD, AED and INR too. Pick ONE of two setups:
+  (A) Easiest: one product per plan and billing period, with Localized Pricing in Dodo (Settings, then Localized Pricing) so each country pays the exact price below. Use the same product id for everyone: {"Firm":{"m":{"all":"pdt_.."},"y":{"all":"pdt_.."}},"Growth":{"m":{"all":"pdt_.."}},"Starter":{"m":{"all":"pdt_.."}}}
+  (B) One product per currency: keys `in`, `uk`, `eu`, `sg`, `ae` and `default` (USD, used for the US, Canada, Australia and every other country). If a local region (in, uk, eu, sg, ae) has no product and no `all`, checkout stops with an error instead of charging a different currency.
+  Price table (must match what Dodo charges): USD 12 / 59 / 199 · GBP 9 / 45 / 149 · EUR 11 / 55 / 185 · SGD 15 / 79 / 269 · AED 45 / 219 / 729 · INR 299 / 1,499 / 4,999 (Personal / Business / Accountant for up to 50 clients). Test one purchase per currency before announcing.
+  India accounts whose request does not come from India are charged the `default` (USD) product, or the `all` product.
   The old flat format ({"Firm":{"m":"pdt_.."}}) still works but charges everyone the same.
 - Dodo webhook: `https://YOURDOMAIN/api/dodo-webhook`, events payment.succeeded, subscription.active, subscription.renewed, subscription.cancelled, subscription.expired, subscription.on_hold.
 - Optional automatic reminder emails: free Resend account, verify your sending domain, then add RESEND_API_KEY, REMIND_FROM ("Ledgerline <reminders@yourdomain.com>") and CRON_SECRET in Vercel. A daily job runs by itself (`vercel.json`). Without these the switch in the app does nothing.

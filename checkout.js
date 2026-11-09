@@ -7,15 +7,23 @@
 //            "y":{"in":"pdt_in_y","us":"pdt_us_y","default":"pdt_us_y"}},
 //    "Growth":{...same shape...}, "Starter":{...}}
 // Region = the country saved on the account at onboarding (in, us, uk, ca, au, ae, sg, gl).
-// "default" is used when a region has no product of its own, and for India-priced accounts whose request does not
+// Local-currency regions: in (INR), uk (GBP), eu (EUR), sg (SGD), ae (AED) each need their own product,
+// OR use one product for everyone with {"all":"pdt_..."} when you set the per-country prices in Dodo's Localized Pricing.
+// "default" (your USD product) is used for every other country, and for India accounts whose request does not
 // come from India (self-declared country alone is not trusted for the cheaper India price).
 // The old flat shape {"Firm":{"m":"pdt_1"}} still works (one price for everyone).
 const PLANS = ['Starter', 'Growth', 'Firm'];
 
+// Regions that are shown a LOCAL-currency price in the app. For these, never silently charge a different currency:
+// if the product for that region is missing the checkout stops with an error instead.
+const LOCAL = ['in', 'uk', 'eu', 'sg', 'ae'];
 function pick(entry, region) {
   if (!entry) return null;
-  if (typeof entry === 'string') return entry;           // old flat shape
-  return entry[region] || entry.default || null;
+  if (typeof entry === 'string') return entry;           // old flat shape: one price for everyone
+  if (entry[region]) return entry[region];
+  if (entry.all) return entry.all;                       // one product whose prices are set per country in Dodo (Localized Pricing)
+  if (LOCAL.includes(region)) return null;
+  return entry.default || null;
 }
 
 export default async function handler(req, res) {

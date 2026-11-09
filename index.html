@@ -1,43 +1,252 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" href="/icon-192.png"><script>try{var r=new URLSearchParams(location.search).get("ref");if(r)localStorage.setItem("ledgerline_ref",r.replace(/[^\w-]/g,"").slice(0,24))}catch(e){}</script><meta name="viewport" content="width=device-width,initial-scale=1">
 <script>if(/access_token=|[?&]code=|type=recovery|error_description=/.test(location.hash+location.search))location.replace("/app"+location.search+location.hash)</script>
-<title>Ledgerline: books, invoices and client portal for accountants and bookkeepers</title>
-<meta name="description" content="Separate books for every client, automatic overdue-invoice reminders and a read-only client link under your own firm name. For accountants and bookkeepers in India, US, UK, Canada, Australia, UAE and Singapore. 14-day free trial.">
-<meta property="og:title" content="Ledgerline: books, invoices and client portal for accountants and bookkeepers"><meta property="og:type" content="website">
+<title>Ledgerline: books, invoices and a client portal for accountants and bookkeepers</title>
+<meta name="description" content="Separate records for every client, automatic reminders for unpaid invoices and a simple link for clients to see their numbers, under your firm's name. For accountants and bookkeepers in the US, UK, Canada, Australia, UAE, Singapore and India. 14-day free trial.">
+<meta property="og:title" content="Ledgerline: books, invoices and a client portal for accountants and bookkeepers"><meta property="og:type" content="website"><meta property="og:image" content="/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="/og.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20rx%3D%2222%22%20fill%3D%22%230B1220%22/%3E%3Crect%20x%3D%228%22%20y%3D%2214%22%20width%3D%2216%22%20height%3D%2236%22%20rx%3D%228%22%20fill%3D%22%23fff%22/%3E%3Cpath%20d%3D%22M24%2042H60Q80%2042%2080%2022%22%20fill%3D%22none%22%20stroke%3D%22%2310B981%22%20stroke-width%3D%2212%22/%3E%3Cpath%20d%3D%22M67%2024L80%207L93%2024Z%22%20fill%3D%22%2310B981%22%20stroke%3D%22%2310B981%22%20stroke-width%3D%223%22%20stroke-linejoin%3D%22round%22/%3E%3Crect%20x%3D%228%22%20y%3D%2258%22%20width%3D%2276%22%20height%3D%2214%22%20rx%3D%227%22%20fill%3D%22%23fff%22/%3E%3Crect%20x%3D%228%22%20y%3D%2280%22%20width%3D%2276%22%20height%3D%2214%22%20rx%3D%227%22%20fill%3D%22%2310B981%22/%3E%3C/svg%3E"><meta name="theme-color" content="#0B1220">
 <style>
-:root{--ink:#0B1220;--g:#10B981;--m:#586174;--r:#E3E7EC}*{box-sizing:border-box}
-body{margin:0;font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:#fff}
-.w{max-width:1000px;margin:0 auto;padding:0 20px}.dark{background:var(--ink);color:#fff}
+:root{--bg:#070B14;--card:#0E1626;--line:#1F2B45;--ink:#E7ECF5;--mut:#8FA0BC;--g:#10B981;--gd:#04251B;--red:#F87171;--amb:#FBBF24}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--bg)}
+a{color:inherit}.w{max-width:1040px;margin:0 auto;padding:0 20px}
 nav{display:flex;justify-content:space-between;align-items:center;padding:16px 0;gap:12px}
 .logo{display:flex;align-items:center;font-weight:800;font-size:22px;color:#fff;text-decoration:none}.logo svg{margin-right:8px}.logo i{color:var(--g);font-style:normal}
-.btn{display:inline-block;background:var(--g);color:#04251B;border-radius:10px;padding:13px 22px;font-weight:700;text-decoration:none}
-.btn.o{background:none;color:#fff;border:1px solid #fff;padding:9px 16px}
-h1{font-size:clamp(34px,6vw,56px);line-height:1.1;margin:36px 0 16px;letter-spacing:-.02em}h1 em{color:var(--g);font-style:normal}
-.hero{padding-bottom:64px}.hero p{color:#B9C3D6;max-width:620px;font-size:18px;margin:0 0 24px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;padding:48px 0 16px}
-.card{border:1px solid var(--r);border-radius:14px;padding:20px}.card h3{margin:0 0 6px;font-size:18px}.card p{margin:0;color:var(--m)}
-section{padding:32px 0 48px}h2{font-size:30px;margin:0 0 16px}
-.t{overflow-x:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:12px 6px;border-bottom:1px solid var(--r)}th{color:var(--m);font-size:13px;text-transform:uppercase}
-.note{color:var(--m);font-size:14px}footer{padding:28px 0;color:var(--m);font-size:14px;border-top:1px solid var(--r)}footer a{color:var(--m)}
-body{background:#070B14;color:#E7ECF5}.card{background:#0E1626;border-color:#1F2B45}.card p,.note,th,footer,footer a{color:#8FA0BC}th,td{border-color:#1F2B45}footer{border-color:#1F2B45}.dark{background:#05080F}
-.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}.cg label{font-size:13px;color:#8FA0BC}.cg input,.cg select{width:100%;padding:9px;border-radius:8px;border:1px solid #2A3A5C;background:#0A1120;color:#E7ECF5;font:inherit;margin-top:4px}#co{font-size:18px;margin:14px 0 0}
+.btn{display:inline-block;background:var(--g);color:var(--gd);border:0;border-radius:10px;padding:13px 22px;font:700 16px system-ui,sans-serif;text-decoration:none;cursor:pointer}
+.btn.o{background:none;color:#fff;border:1px solid #fff;padding:9px 16px;font-size:15px}.btn.g{background:none;color:var(--ink);border:1px solid #2A3A5C}
+.hero{background:#05080F;padding-bottom:56px}
+h1{font-size:clamp(34px,6vw,56px);line-height:1.1;margin:30px 0 16px;letter-spacing:-.02em}h1 em{color:var(--g);font-style:normal}
+.hero p.s{color:#B9C3D6;max-width:640px;font-size:18px;margin:0 0 24px}.note{color:var(--mut);font-size:14px}.hero .note{margin-left:12px}
+h2{font-size:clamp(24px,4vw,32px);margin:0 0 8px;letter-spacing:-.01em}.sub{color:var(--mut);margin:0 0 24px;max-width:640px}
+section{padding:48px 0 8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}.card h3{margin:0 0 6px;font-size:18px}.card p{margin:0;color:var(--mut)}
+.pain h3{color:#fff}.pain .x{color:var(--red);font-size:14px;font-weight:700;margin-bottom:4px;display:block}.pain .v{color:var(--g);font-weight:700;font-size:14px;margin-top:10px;display:block}
+.steps{counter-reset:s}.steps .card{position:relative;padding-top:44px}.steps .card:before{counter-increment:s;content:counter(s);position:absolute;top:14px;left:20px;width:24px;height:24px;border-radius:50%;background:var(--g);color:var(--gd);font-weight:800;display:grid;place-items:center;font-size:13px}
+/* ---- demo ---- */
+.demo{margin-top:36px;max-width:880px;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.bar{display:flex;align-items:center;gap:7px;padding:10px 14px;background:#0A1120;border-bottom:1px solid var(--line);font-size:13px;color:var(--mut)}
+.bar i{width:10px;height:10px;border-radius:50%;background:#2A3A5C;display:inline-block}.bar span{margin-left:8px;color:var(--ink);font-weight:600}.bar em{margin-left:auto;font-style:normal;font-size:12px;border:1px solid #2A3A5C;border-radius:99px;padding:1px 9px}
+.stage{position:relative;height:300px}
+.sc{position:absolute;inset:0;padding:18px 20px;opacity:0;visibility:hidden;transition:opacity .35s}.sc.on{opacity:1;visibility:visible}
+.row{display:flex;align-items:center;gap:10px;justify-content:space-between;padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:#0A1120;font-size:14px}
+.row b{font-weight:600}.row small{color:var(--mut)}
+.pill{font-size:12px;font-weight:700;padding:2px 9px;border-radius:99px;white-space:nowrap}.pill.ok{background:rgba(16,185,129,.15);color:var(--g)}.pill.od{background:rgba(248,113,113,.15);color:var(--red)}.pill.un{background:rgba(251,191,36,.15);color:var(--amb)}
+.toast{position:absolute;right:18px;bottom:16px;background:#0B3B2C;border:1px solid var(--g);color:#C8F7E3;border-radius:10px;padding:10px 14px;font-size:14px;max-width:80%}
+.kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin:10px 0}.kp div{background:#0A1120;border:1px solid var(--line);border-radius:10px;padding:8px 10px}.kp span{display:block;font-size:11px;color:var(--mut);text-transform:uppercase}.kp b{font-size:18px}
+.ph{font-size:20px;font-weight:800}.mu{color:var(--mut);font-size:13px}
+.conf{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}.fld{border:1px solid #2A3A5C;border-radius:8px;padding:6px 10px;font-size:14px;min-width:150px;background:#0A1120}
+.typed{display:inline-block;overflow:hidden;white-space:nowrap;vertical-align:bottom;width:0}
+.ok2{background:var(--g);color:var(--gd);font-weight:700;border-radius:8px;padding:6px 12px;font-size:14px}
+.chip{display:inline-block;margin:4px 6px 0 0;font-size:13px;padding:3px 10px;border-radius:99px;border:1px solid #2A3A5C}
+.cap{padding:12px 20px;border-top:1px solid var(--line);font-size:15px;min-height:50px}
+.ctl{display:flex;align-items:center;gap:12px;padding:10px 16px;border-top:1px solid var(--line);background:#0A1120}
+.ctl button{background:none;border:1px solid #2A3A5C;color:var(--ink);border-radius:8px;width:34px;height:30px;cursor:pointer;font-size:12px}
+.dots{display:flex;gap:6px}.dots button{width:auto;height:auto;padding:3px 9px;font-size:12px;color:var(--mut)}.dots button.on{color:var(--gd);background:var(--g);border-color:var(--g);font-weight:700}
+.pg{flex:1;height:4px;background:#1B2740;border-radius:4px;overflow:hidden}.pg b{display:block;height:100%;width:0;background:var(--g)}
+/* scene animations (restart each time a scene gets .on) */
+.sc.on .toast{animation:pop .5s 2.4s both}.sc.on .typed{animation:type 1.4s steps(11) 1.2s both}.sc.on .ok2{animation:pop .4s 3.1s both}
+.sc.on .fi{animation:pop .5s both}.sc.on .fi:nth-child(2){animation-delay:.25s}.sc.on .fi:nth-child(3){animation-delay:.5s}.sc.on .fi:nth-child(4){animation-delay:.75s}.sc.on .fi:nth-child(5){animation-delay:1s}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}@keyframes type{from{width:0}to{width:11ch}}
+.demo.paused .sc.on *{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){.sc *{animation:none!important}.typed{width:auto}}
+/* ---- calculator, pricing, faq ---- */
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}.cg label{font-size:13px;color:var(--mut)}
+.cg input,.cg select{width:100%;padding:9px;border-radius:8px;border:1px solid #2A3A5C;background:#0A1120;color:var(--ink);font:inherit;margin-top:4px}#co{font-size:18px;margin:14px 0 0}
+.pr{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;align-items:stretch}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column}.pc.f{border-color:var(--g)}
+.pc h3{margin:0}.pc .w2{color:var(--mut);font-size:14px;margin:2px 0 10px}.amt{font-size:38px;font-weight:800;line-height:1.1}.amt small{font-size:15px;font-weight:400;color:var(--mut)}
+.per{color:var(--g);font-size:14px;margin:6px 0 0;min-height:21px}.pc ul{list-style:none;margin:14px 0 18px;padding:0;color:#B9C3D6;font-size:15px;flex:1}.pc li{padding:4px 0 4px 22px;position:relative}.pc li:before{content:"✓";position:absolute;left:0;color:var(--g);font-weight:800}
+.pc .btn{text-align:center}.pc .na{color:var(--mut);font-size:13px;margin:-6px 0 14px}
+details{border-bottom:1px solid var(--line);padding:14px 0}summary{cursor:pointer;font-weight:600}details p{color:var(--mut);margin:8px 0 0}
+.curs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}.curs button{background:none;border:1px solid #2A3A5C;color:var(--ink);border-radius:99px;padding:5px 14px;cursor:pointer;font:600 14px system-ui,sans-serif}.curs button.on{background:var(--g);border-color:var(--g);color:var(--gd)}
+.ba{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px}.ba .bh{font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:0 4px}.ba .bh.b{color:var(--red)}.ba .bh.a{color:var(--g)}
+.ba .c{border-radius:12px;padding:14px 16px;font-size:15px;line-height:1.5}.ba .c.b{background:#120F18;border:1px solid #3A1F28;color:#C9B8BE}.ba .c.a{background:#0B1F1B;border:1px solid #14523F;color:#D6F5E8}
+@media(max-width:640px){.ba{grid-template-columns:1fr}.ba .bh.a{margin-top:10px}}
+.kp.big b{font-size:26px;color:#fff}#oc span{font-size:11px}
+.path{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}.path .card{padding:16px}.path b.d{display:block;color:var(--g);font-size:13px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.shot{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px}
+.mini{background:#0A1120;border:1px solid var(--line);border-radius:10px;padding:12px;min-height:178px;margin-bottom:12px}.mini .row{font-size:13px;margin-bottom:6px}.mini .kp{margin:8px 0}.mini .kp b{font-size:16px}
+.toast2{margin-top:8px;background:#0B3B2C;border:1px solid var(--g);color:#C8F7E3;border-radius:8px;padding:8px 10px;font-size:13px}
+.shot h3{margin:0 0 4px;font-size:16px}.shot p{margin:0;color:var(--mut);font-size:14px}
+.im img{width:100%;height:auto;display:block;border-radius:14px;border:1px solid var(--line);margin-top:18px}
+.cta .im img{max-height:360px;object-fit:cover;margin-top:0}
+.cta{text-align:center;padding:56px 0 64px}.cta h2{margin-bottom:18px}
+footer{padding:28px 0;color:var(--mut);font-size:14px;border-top:1px solid var(--line)}footer a{color:var(--mut)}
 </style></head><body>
-<div class="dark"><div class="w hero"><nav><a class="logo" href="/"><svg width="28" height="28" viewBox="0 0 100 100" aria-hidden="true" style="vertical-align:-5px;margin-right:6px"><rect x="8" y="14" width="16" height="36" rx="8" fill="#fff"/><path d="M24 42H60Q80 42 80 22" fill="none" stroke="#10B981" stroke-width="12"/><path d="M67 24L80 7L93 24Z" fill="#10B981" stroke="#10B981" stroke-width="3" stroke-linejoin="round"/><rect x="8" y="58" width="76" height="14" rx="7" fill="#fff"/><rect x="8" y="80" width="76" height="14" rx="7" fill="#10B981"/></svg>Ledger<i>line</i></a><span style="display:flex;align-items:center;gap:14px;white-space:nowrap"><a href="/app#login" style="color:#fff">Log in</a><a class="btn o" href="/app#signup">Start free trial</a></span></nav>
+
+<div class="hero"><div class="w">
+<nav><a class="logo" href="/"><svg width="28" height="28" viewBox="0 0 100 100" aria-hidden="true"><rect x="8" y="14" width="16" height="36" rx="8" fill="#fff"/><path d="M24 42H60Q80 42 80 22" fill="none" stroke="#10B981" stroke-width="12"/><path d="M67 24L80 7L93 24Z" fill="#10B981" stroke="#10B981" stroke-width="3" stroke-linejoin="round"/><rect x="8" y="58" width="76" height="14" rx="7" fill="#fff"/><rect x="8" y="80" width="76" height="14" rx="7" fill="#10B981"/></svg>Ledger<i>line</i></a>
+<span style="display:flex;align-items:center;gap:14px;white-space:nowrap"><a href="/app#login" style="color:#fff">Log in</a><a class="btn o" href="/app#signup">Start free trial</a></span></nav>
+
 <h1>Stop chasing invoices. <em>Stop explaining the books.</em></h1>
-<p>Give every client their own set of books, send overdue-invoice reminders automatically, and let clients open a read-only link to see their numbers, all under your own firm name. Built for accountants and bookkeepers in 7 countries.</p>
-<a class="btn" href="/app#signup">Start 14-day free trial</a> <span class="note" style="margin-left:12px;color:#B9C3D6">No card needed</span></div></div>
-<div class="w"><div class="grid">
-<div class="card"><h3>Get paid faster</h3><p>Invoices with tax and your payment details, plus automatic reminders for the ones that go overdue.</p></div>
-<div class="card"><h3>Fewer "what is my balance?" calls</h3><p>Clients open a read-only link with their cash balance, profit and unpaid invoices, and confirm the books with their name.</p></div>
-<div class="card"><h3>Every client in one login</h3><p>The Accountant plan keeps up to 50 clients' books separate per pack. Add packs as you grow.</p></div>
-<div class="card"><h3>Month-end without spreadsheets</h3><p>Match a bank statement CSV to your books, run recurring invoices, see the tax summary and send a branded monthly report.</p></div>
-<div class="card"><h3>Your brand, not ours</h3><p>Your firm name, colour and logo on the client link, invoices and reports.</p></div></div>
-<section><h2>What is the time worth to your firm?</h2><div class="card"><div class="cg"><label>Clients you handle<input id="cc" type="number" value="40"></label><label>Hours saved per client each month<input id="ch" type="number" step="0.5" value="1"></label><label>Your hourly rate<input id="cr" type="number" value="500"></label><label>Currency<select id="cu"><option>₹</option><option>$</option></select></label></div><p id="co"></p><p class="note">Your own numbers, your own estimate: change any box. Overdue invoices? Reminders can go out for you automatically, and clients get a read-only link to confirm the books.</p></div></section>
-<section><h2>Pricing</h2><div class="t"><table><tr><th>Plan</th><th>Best for</th><th>India</th><th>US</th></tr>
-<tr><td><b>Accountant</b></td><td>Firms, per 50 clients</td><td>₹4,999/month</td><td>$199/month</td></tr><tr><td><b>Business</b></td><td>Companies and businesses</td><td>₹1,499/month</td><td>$59/month</td></tr><tr><td><b>Personal</b></td><td>Individuals and families</td><td>₹299/month</td><td>$12/month</td></tr></table></div>
-<p class="note">Every plan starts with a 14-day free trial, no card needed. Prices for the UK, Canada, Australia, UAE and Singapore are shown in local currency when you sign up.</p>
-<a class="btn" href="/app#signup">Start free trial</a></section></div>
-<footer><div class="w">© Ledgerline · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></div></footer><script>(function(){var g=function(i){return document.getElementById(i)},PK={"₹":4999,"$":199},DR={"₹":500,"$":40},f=function(n,u){return u+n.toLocaleString(u=="₹"?"en-IN":"en-US",{maximumFractionDigits:0})},calc=function(){var c=+g("cc").value||0,h=+g("ch").value||0,r=+g("cr").value||0,u=g("cu").value,v=c*h*r,p=PK[u]*Math.max(1,Math.ceil(c/50));g("co").innerHTML="Time saved is worth <b>"+f(v,u)+"</b> a month. The Accountant plan for "+c+" clients costs <b>"+f(p,u)+"</b>. That is <b>"+(Math.round(v/p*10)/10)+" times</b> what you pay."};
-try{var z=Intl.DateTimeFormat().resolvedOptions().timeZone||"";if(/^(America|Australia)\//.test(z)||z=="Europe/London"){g("cu").value="$";g("cr").value=DR["$"]}}catch(e){}
-g("cu").onchange=function(){var o=g("cu").value=="$"?"₹":"$";if(+g("cr").value==DR[o])g("cr").value=DR[g("cu").value];calc()};
-["cc","ch","cr","cu"].forEach(function(i){g(i).oninput=calc});calc()})()</script></body></html>
+<p class="s">Keep every client's records separate, send reminders for unpaid invoices automatically, and let clients see their own numbers through a simple link, all under your firm's name. Built for accountants and bookkeepers.</p>
+<a class="btn" href="/app#signup">Start 14-day free trial</a><a class="btn g" href="#demo" style="margin-left:10px">See how it works</a><span class="note">No card needed</span>
+<p class="note" style="margin:16px 0 0">Built for firms in the US · UK · Europe · Singapore · UAE · Canada · Australia · India and beyond</p>
+
+<!-- DEMO: an animated walkthrough that runs inside the page (no video file needed). -->
+<div class="demo" id="demo" aria-label="Product demo">
+ <div class="bar"><i></i><i></i><i></i><span id="dt">Invoices</span><em>Sample data</em></div>
+ <div class="stage" id="stage">
+  <div class="sc on" data-t="Invoices" data-c="An invoice is not paid on time. Ledgerline emails your customer a polite reminder for you.">
+   <div class="row fi"><span><b>INV-0041</b> Northside Bakery<br><small data-d="a1"></small></span><span class="pill ok">Paid</span></div>
+   <div class="row fi"><span><b>INV-0042</b> Bright Dental<br><small data-d="a2"></small></span><span class="pill od">Overdue 9 days</span></div>
+   <div class="row fi"><span><b>INV-0043</b> Oak Street Retail<br><small data-d="a3"></small></span><span class="pill un">Unpaid</span></div>
+   <div class="toast">Reminder emailed to Bright Dental</div>
+  </div>
+  <div class="sc" data-t="Client link" data-c="Your client opens a link, sees their own numbers and confirms them by typing their name.">
+   <div class="ph fi" id="pb">Acme Books</div><div class="mu fi">View-only page for <b>Northside Bakery</b></div>
+   <div class="kp fi"><div><span>Cash balance</span><b data-d="k1"></b></div><div><span>Income this month</span><b data-d="k2"></b></div><div><span>Spending</span><b data-d="k3"></b></div><div><span>Profit</span><b data-d="k4"></b></div></div>
+   <div class="conf fi"><div class="fld"><span class="typed">Alex Morgan</span></div><span class="ok2">Confirmed</span><span class="mu">Name and time recorded</span></div>
+  </div>
+  <div class="sc" data-t="Month-end" data-c="Upload your bank statement, match it to your records, then send a monthly report with your firm's name.">
+   <div class="ph fi">Monthly report</div>
+   <div class="row fi"><span>Income</span><b data-d="r1"></b></div>
+   <div class="row fi"><span>Spending</span><b data-d="r2"></b></div>
+   <div class="row fi"><span>Net profit</span><b data-d="r3"></b></div>
+   <div class="fi"><span class="chip">18 bank rows matched</span><span class="chip">2 to review</span></div>
+  </div>
+  <div class="sc" data-t="Clients" data-c="One login, with separate records for every client.">
+   <div class="ph fi">Clients <span class="mu">12 of 50 used</span></div>
+   <div class="row fi"><span><b>Northside Bakery</b></span><small>Own books</small></div>
+   <div class="row fi"><span><b>Bright Dental</b></span><small>Own books</small></div>
+   <div class="row fi"><span><b>Oak Street Retail</b></span><small>Own books</small></div>
+   <div class="row fi"><span><b>Harbor Logistics</b></span><small>Own books</small></div>
+  </div>
+  <div class="sc" data-t="After" data-c="Same firm, a calmer month. The hours you get back can go to more clients. (Example numbers from the calculator below; yours will differ.)">
+   <div class="ph fi">Your month, after</div>
+   <div class="kp big fi"><div><span>Hours back</span><b data-o="o1"></b></div><div><span>Room for more clients</span><b data-o="o2"></b></div><div><span>Extra fees</span><b data-o="o3"></b></div></div>
+   <div class="fi"><span class="chip">Reminders go out by themselves</span><span class="chip">Client link replaces balance calls</span><span class="chip">Reports sent from one place</span></div>
+  </div>
+ </div>
+ <div class="cap" id="cap" aria-live="polite"></div>
+ <div class="ctl"><button id="pp" aria-label="Pause demo">❚❚</button><div class="dots" id="dots"></div><div class="pg"><b id="pgb"></b></div><button id="wv" hidden style="width:auto;padding:0 10px">Full video</button></div>
+</div>
+</div></div>
+
+<div class="w">
+<section><h2>See it in ten seconds</h2><p class="sub">Four screens. No video to watch. Sample data shown.</p>
+<div class="shots">
+<div class="shot"><div class="mini"><div class="row"><span><b>INV-0042</b> Bright Dental<br><small data-d="a2"></small></span><span class="pill od">Overdue 9 days</span></div><div class="toast2">Reminder emailed to Bright Dental</div></div><h3>Late payers get reminded</h3><p>Switch reminders on once. Unpaid invoices are chased for you.</p></div>
+<div class="shot"><div class="mini"><div style="font-weight:800">Acme Books</div><div class="mu">View-only page for <b>Northside Bakery</b></div><div class="kp"><div><span>Cash balance</span><b data-d="k1"></b></div><div><span>Profit</span><b data-d="k4"></b></div></div><span class="ok2">Confirmed by Alex Morgan</span></div><h3>Clients see their own numbers</h3><p>A link under your firm's name. No more "what is my balance?" calls.</p></div>
+<div class="shot"><div class="mini"><div style="font-weight:800;margin-bottom:6px">Monthly report</div><div class="row"><span>Income</span><b data-d="r1"></b></div><div class="row"><span>Spending</span><b data-d="r2"></b></div><div class="row"><span>Net profit</span><b data-d="r3"></b></div></div><h3>Month-end in one place</h3><p>Match your bank statement, then send a report with your logo.</p></div>
+<div class="shot"><div class="mini"><div style="font-weight:800;margin-bottom:6px">Clients <span class="mu">12 of 50 used</span></div><div class="row"><span><b>Northside Bakery</b></span><small>Own books</small></div><div class="row"><span><b>Bright Dental</b></span><small>Own books</small></div><div class="row"><span><b>Oak Street Retail</b></span><small>Own books</small></div></div><h3>One login, every client</h3><p>Separate records for each client. Up to 50 per plan.</p></div>
+</div></section>
+
+<section><h2>Your month, before and after</h2><p class="sub">What changes in your daily work. It shows what the features do. It is not a promise of results.</p>
+<div class="ba">
+<div class="bh b">Before</div><div class="bh a">With Ledgerline</div>
+<div class="c b">Typing the same "gentle reminder" email to every late payer.</div><div class="c a">Unpaid invoices get a reminder automatically: after a week, then once a week, up to three times.</div>
+<div class="c b">Answering "what is my balance?" by message or call.</div><div class="c a">Clients open a link, see their own numbers, and confirm them by typing their name.</div>
+<div class="c b">Copying bank lines into a spreadsheet at month-end.</div><div class="c a">Upload your bank statement to match it, then send a monthly report with your firm's name.</div>
+<div class="c b">Every new client means more files and tabs.</div><div class="c a">Up to 50 clients, each with their own separate records, under one login.</div>
+</div><div class="im" id="im-after"></div></section>
+
+<section><h2>How it works</h2><p class="sub">Start with one real client. No setup call needed.</p>
+<div class="grid steps">
+<div class="card"><h3>Add a client</h3><p>Each client gets their own separate records, all under one login.</p></div>
+<div class="card"><h3>Enter invoices and cash</h3><p>Create invoices, record money in and out, or upload a bank statement.</p></div>
+<div class="card"><h3>Share and report</h3><p>Send your client a link to their numbers, and a monthly report with your firm's name and logo.</p></div>
+</div><div class="im" id="im-month"></div></section>
+
+<section><h2>What is the time worth to your firm?</h2><p class="sub">Use your own numbers.</p>
+<div class="card"><div class="cg"><label>Clients you handle<input id="cc" type="number" value="40"></label><label>Hours you could save per client, each month<input id="ch" type="number" step="0.5" value="1"></label><label>What one hour of your time is worth<input id="cr" type="number" value="40"></label><label>Hours you spend on each client now<input id="cp" type="number" step="0.5" value="4"></label><label>What you charge each client per month<input id="cf" type="number" value="150"></label><label>Currency<select id="cu"><option value="USD">US$</option><option value="GBP">£</option><option value="EUR">€</option><option value="SGD">S$</option><option value="AED">AED</option><option value="INR">₹</option></select></label></div><p id="co"></p>
+<h3 style="margin:22px 0 4px;font-size:18px">Where the hours could go</h3><div class="kp big" id="oc"><div><span>Hours you get back</span><b id="o1"></b></div><div><span>New clients you could take on</span><b id="o2"></b></div><div><span>Extra money per month</span><b id="o3"></b></div></div><p class="note" style="margin-top:10px">Just maths on your own numbers. It assumes you use the saved hours to take on new clients. An example, not a promise.</p><p class="note">These are your own estimates: change any box. The hours saved are a guess, not a promise.</p></div></section>
+
+<section><h2>A sensible way to start</h2><p class="sub">Use the 14-day trial to measure it on real work, then decide with your own numbers.</p>
+<div class="path"><div class="card"><b class="d">Day 1</b><p>Add one real client and enter last month's invoices and cash.</p></div><div class="card"><b class="d">Day 3</b><p>Send that client the link to their numbers and switch reminders on.</p></div><div class="card"><b class="d">Day 7</b><p>Upload a bank statement to match it, and send the monthly report.</p></div><div class="card"><b class="d">Day 14</b><p>Count the hours you got back, put them in the calculator, and decide.</p></div></div></section>
+
+<section id="pricing"><h2>Pricing</h2><p class="sub">Every plan starts with a 14-day free trial, no card needed.</p>
+<div class="curs" id="curs" role="group" aria-label="Currency"></div><div class="pr" id="pr"></div><noscript><p class="note">Turn on JavaScript to see prices for your country.</p></noscript>
+<p class="note" id="prn" style="margin-top:14px"></p></section>
+
+<section><h2>Questions</h2>
+<details><summary>Does it replace QuickBooks or Xero?</summary><p>Not for everyone. Ledgerline handles your records, invoices, reminders, reports and the client link. It does not connect to your bank automatically yet, so you upload a bank statement file instead. Try it on one client first.</p></details>
+<details><summary>How do the reminders for unpaid invoices work?</summary><p>If you switch them on, an unpaid invoice gets a polite email to your customer after a week, then once a week, up to three times.</p></details>
+<details><summary>What does my client see?</summary><p>A page just for them: cash balance, income, spending, profit and unpaid invoices. They can look but not change anything. The link stops working after 90 days, and you can turn it off any time.</p></details>
+<details><summary>Is the client confirmation a legal signature?</summary><p>No. The client types their name and the time is saved. It is a simple confirmation.</p></details>
+<details><summary>Which countries are supported?</summary><p>US, UK, Europe, Canada, Australia, UAE, Singapore and India, with each country's tax name, financial-year start and filing calendar. Everywhere else works too, with a simple general setup.</p></details>
+<details><summary>Can I pay in my own currency?</summary><p>Yes, for the countries we list: US dollars, pounds, euros, Singapore dollars, UAE dirhams or Indian rupees, based on the country you choose when you sign up. Other countries pay in US dollars.</p></details>
+<details><summary>What happens after the trial?</summary><p>You choose a plan to keep adding data. Your existing data stays visible.</p></details>
+</section>
+
+<div class="cta"><div class="im" id="im-cta" style="margin-bottom:22px"></div><h2>Try it on your real clients for 14 days.</h2><a class="btn" href="/app#signup">Start free trial</a><p class="note" style="margin-top:12px">No card needed.</p></div>
+</div>
+<footer><div class="w">© Ledgerline · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a></div></footer>
+
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+// You do NOT need a video: the page already has a 20-second animated demo and four static screens.
+// Optional real video: paste your normal YouTube or Loom share link between the quotes and a "Full video" button appears.
+// Examples: "https://youtu.be/AbCdEf12345"   "https://www.youtube.com/watch?v=AbCdEf12345"   "https://www.loom.com/share/0123456789abcdef0123456789abcdef"
+var DEMO_VIDEO="";
+
+// Prices per currency. These must match the Dodo products and the PR table in app.html.
+var C={
+ USD:{s:"$",l:"en-US",acc:199,biz:59,per:12,rate:40,fee:150,k:1,lab:"US$",note:"Prices in US dollars. Customers in the US, Canada, Australia and most other countries pay in dollars."},
+ GBP:{s:"£",l:"en-US",acc:149,biz:45,per:9,rate:30,fee:120,k:.8,lab:"£",note:"Prices in pounds, for customers in the UK."},
+ EUR:{s:"€",l:"en-US",acc:185,biz:55,per:11,rate:35,fee:130,k:.92,lab:"€",note:"Prices in euros, for customers in Europe."},
+ SGD:{s:"S$",l:"en-US",acc:269,biz:79,per:15,rate:50,fee:200,k:1.3,lab:"S$",note:"Prices in Singapore dollars, for customers in Singapore."},
+ AED:{s:"AED ",l:"en-US",acc:729,biz:219,per:45,rate:150,fee:550,k:3.7,lab:"AED",note:"Prices in UAE dirhams, for customers in the UAE."},
+ INR:{s:"₹",l:"en-IN",acc:4999,biz:1499,per:299,rate:500,fee:3000,k:85,lab:"₹",note:"Prices in Indian rupees, for customers in India."}};
+var money=function(n,c){return C[c].s+n.toLocaleString(C[c].l,{maximumFractionDigits:0})};
+
+// Global first: everyone starts in USD. Visitors in the UK, Singapore or the UAE start in their own currency.
+// Anyone can switch with the buttons. The price actually charged follows the country chosen at sign-up.
+var tz="";try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||""}catch(e){}
+var cur=tz==="Europe/London"?"GBP":/^Europe\/(Berlin|Paris|Madrid|Rome|Amsterdam|Brussels|Vienna|Dublin|Lisbon|Helsinki|Athens|Luxembourg|Tallinn|Riga|Vilnius|Bratislava|Ljubljana|Zagreb|Valletta|Nicosia)$/.test(tz)?"EUR":tz==="Asia/Singapore"?"SGD":tz==="Asia/Dubai"?"AED":"USD",rateTouched=false,feeTouched=false;
+
+var BASE=[1180,520,840,4530,3890,2210,1680,3890,2210,1680],KEYS=["a1","a2","a3","k1","k2","k3","k4","r1","r2","r3"];
+var sc=[].slice.call(document.querySelectorAll(".sc")),idx=0,el=0,DUR=5600,paused=false,demo=$("demo"),dots=$("dots"),pgb=$("pgb"),tm=null;
+function demoData(){var r=cur=="INR"?100:10,a=BASE.map(function(v){return Math.round(v*C[cur].k/r)*r}),d={};KEYS.forEach(function(k,i){d[k]=money(a[i],cur)});
+ d.a1="Issued 2 Oct · "+d.a1;d.a2="Issued 24 Sep · "+d.a2;d.a3="Issued 6 Oct · "+d.a3;
+ document.querySelectorAll("[data-d]").forEach(function(e){e.textContent=d[e.dataset.d]||""})}
+
+// ---- calculator ----
+var calc=function(){var c=+$("cc").value||0,h=+$("ch").value||0,r=+$("cr").value||0,u=$("cu").value,v=c*h*r,p=C[u].acc*Math.max(1,Math.ceil(c/50));$("co").innerHTML="Time saved is worth <b>"+money(v,u)+"</b> a month. The Accountant plan for "+c+" clients costs <b>"+money(p,u)+"</b>. That is <b>"+(Math.round(v/p*10)/10)+" times</b> what you pay.";
+ var hb=c*h,hp=+$("cp").value||0,fee=+$("cf").value||0,more=hp>0?Math.floor(hb/hp):0,out={o1:(Math.round(hb*10)/10)+" h",o2:"+"+more,o3:money(more*fee,u)+"/mo"};
+ Object.keys(out).forEach(function(k){$(k).textContent=out[k];document.querySelectorAll('[data-o="'+k+'"]').forEach(function(e){e.textContent=out[k]})})};
+
+// ---- pricing ----
+function pricing(){var P=C[cur],plans=[
+ {n:"Accountant",w:"For accountants and bookkeepers",p:P.acc,sub:"Need more? Add another 50 clients at the same price.",feat:["Everything in Business","Up to 50 clients, each with their own separate records","Add more clients in blocks of 50","One login for all of them"],f:1},
+ {n:"Business",w:"For small businesses and companies",p:P.biz,sub:"",feat:["Invoices with tax and your payment details","Automatic reminders for unpaid invoices","A link your client can open to see their numbers","A monthly report with your firm's name and logo","Upload your bank statement and match it to your records","Invoices that repeat by themselves, plus a tax summary"]},
+ {n:"Personal",w:"For you and your family",p:P.per,sub:"",feat:["Track money coming in and going out","Budgets and a simple money health check","Keep track of loans, investments and insurance","Calculators for planning"],na:"For your own money. Invoices and client links are in Business."}];
+ $("pr").innerHTML=plans.map(function(x){return '<div class="pc'+(x.f?' f':'')+'"><h3>'+x.n+'</h3><div class="w2">'+x.w+'</div><div class="amt">'+money(x.p,cur)+' <small>/month'+(x.f?' for up to 50 clients':'')+'</small></div><div class="per">'+x.sub+'</div><ul>'+x.feat.map(function(t){return '<li>'+t+'</li>'}).join("")+'</ul>'+(x.na?'<div class="na">'+x.na+'</div>':'')+'<a class="btn" href="/app#signup">Start free trial</a></div>'}).join("");
+ $("prn").textContent=P.note+" The final price follows the country you choose when you sign up."}
+
+function setCur(c){cur=c;$("cu").value=c;if(!rateTouched)$("cr").value=C[c].rate;if(!feeTouched)$("cf").value=C[c].fee;
+ [].forEach.call($("curs").children,function(b){var on=b.dataset.c==c;b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)});
+ pricing();calc();demoData()}
+Object.keys(C).forEach(function(k){var b=document.createElement("button");b.textContent=C[k].lab;b.dataset.c=k;b.onclick=function(){setCur(k)};$("curs").appendChild(b)});
+$("cu").onchange=function(){setCur($("cu").value)};
+["cc","ch","cp"].forEach(function(i){$(i).oninput=calc});$("cf").oninput=function(){feeTouched=true;calc()};$("cr").oninput=function(){rateTouched=true;calc()};
+
+// ---- animated demo ----
+var reduce=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+sc.forEach(function(s,i){var b=document.createElement("button");b.textContent=i+1;b.setAttribute("aria-label","Show step "+(i+1)+": "+s.dataset.t);b.onclick=function(){show(i)};dots.appendChild(b)});
+function show(i){idx=(i+sc.length)%sc.length;el=0;sc.forEach(function(s,k){s.classList.remove("on");if(k==idx){void s.offsetWidth;s.classList.add("on")}});
+ [].forEach.call(dots.children,function(b,k){b.classList.toggle("on",k==idx)});$("dt").textContent=sc[idx].dataset.t;$("cap").textContent=sc[idx].dataset.c;pgb.style.width="0%"}
+function setPaused(p){paused=p;demo.classList.toggle("paused",p);$("pp").textContent=p?"▶":"❚❚";$("pp").setAttribute("aria-label",p?"Play demo":"Pause demo")}
+$("pp").onclick=function(){setPaused(!paused)};
+tm=setInterval(function(){if(paused)return;el+=100;pgb.style.width=Math.min(100,el/DUR*100)+"%";if(el>=DUR)show(idx+1)},100);
+show(0);if(reduce)setPaused(true);
+
+// ---- optional real video ----
+function toEmbed(u){var m;u=String(u||"").trim();
+ if(m=u.match(/^https:\/\/(?:www\.)?youtu\.be\/([\w-]{6,20})/)||u.match(/^https:\/\/(?:www\.|m\.)?youtube\.com\/(?:watch\?(?:[^#]*&)?v=|embed\/|shorts\/)([\w-]{6,20})/)||u.match(/^https:\/\/www\.youtube-nocookie\.com\/embed\/([\w-]{6,20})/))return"https://www.youtube-nocookie.com/embed/"+m[1];
+ if(m=u.match(/^https:\/\/(?:www\.)?loom\.com\/(?:share|embed)\/([0-9a-f]{20,40})/))return"https://www.loom.com/embed/"+m[1];
+ return""}
+var EMB=toEmbed(DEMO_VIDEO);
+if(EMB){var wv=$("wv");wv.hidden=false;wv.onclick=function(){clearInterval(tm);var f=document.createElement("iframe");f.src=EMB;f.title="Ledgerline walkthrough";f.allow="fullscreen; picture-in-picture";f.allowFullscreen=true;f.style.cssText="width:100%;height:100%;border:0";var st=$("stage");st.innerHTML="";st.style.height="min(495px,56vw)";st.appendChild(f);$("cap").textContent="Full walkthrough";$("dt").textContent="Video";wv.hidden=true}}
+
+// ---- optional HD images (local files only). Put the files in /img/ and write the names here. Leave "" to skip. ----
+var IMG={hero:"",after:"",month:"",cta:""};
+var ALT={after:"Illustration: a cluttered stack of paper invoices on one side, one tidy dashboard on the other",month:"Illustration: tidy client folders connected to one laptop",cta:"Illustration: a calm, sunlit end-of-month scene"};
+var IOK=/^\/img\/[\w.-]+\.(webp|png|jpe?g|avif)$/i;
+if(IOK.test(IMG.hero)){var hs=document.querySelector(".hero").style;hs.backgroundImage='linear-gradient(90deg,rgba(5,8,15,.94) 0%,rgba(5,8,15,.8) 50%,rgba(5,8,15,.45) 100%),url("'+IMG.hero+'")';hs.backgroundSize="cover";hs.backgroundPosition="center"}
+["after","month","cta"].forEach(function(k){if(IOK.test(IMG[k])){var im=document.createElement("img");im.src=IMG[k];im.alt=ALT[k];im.width=1600;im.height=900;im.loading="lazy";im.decoding="async";$("im-"+k).appendChild(im)}});
+
+setCur(cur);
+})();
+</script></body></html>
