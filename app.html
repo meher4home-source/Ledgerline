@@ -118,7 +118,7 @@ main{padding:36px 40px 70px;background:radial-gradient(50% 40% at 85% 0,rgba(124
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 /* ===== EDIT THESE ===== */
-const SB_URL='', SB_KEY='';   // Supabase project URL + anon key. Empty = demo mode (data stays in this browser).
+const SB_URL='https://gaivzkmhoutbnnxiojpd.supabase.co', SB_KEY='sb_publishable_JAaG3zdB7Tt2M8gDqDi-Rw_jMY-VrIk';   // Supabase project URL + anon key. Empty = demo mode (data stays in this browser).
 /* ====================== */
 const sb=(SB_URL&&window.supabase)?supabase.createClient(SB_URL,SB_KEY):null;
 const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
