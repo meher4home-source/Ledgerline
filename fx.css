@@ -1,0 +1,22 @@
+/* ===== LEDGERLINE FUTURISTIC 3D SKIN (site pages). Add to any static page: <link rel="stylesheet" href="/fx.css"><script src="/fx.js" defer></script> ===== */
+body{background:radial-gradient(50% 30% at 90% 0,rgba(124,92,255,.22),transparent 70%),#06050d;color:#f3f0ff}
+#fxc{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.6}
+.dark{position:relative;background:radial-gradient(60% 80% at 78% 40%,rgba(124,92,255,.3),transparent 70%),radial-gradient(35% 45% at 5% 100%,rgba(65,224,255,.1),transparent 70%)}
+.dark .w,.w,footer,section{position:relative;z-index:1}
+.logo i{color:#41e0ff}
+.btn{background:linear-gradient(135deg,#7c5cff,#4f8bff 60%,#41e0ff);color:#fff;border-radius:999px;box-shadow:0 10px 34px -10px #7c5cff;transition:transform .2s,filter .2s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.1)}
+.btn.o{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);box-shadow:none}
+h1 em{color:#41e0ff}
+.card{background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.015)),rgba(14,11,32,.86);border:1px solid rgba(255,255,255,.1);border-radius:22px;transform-style:preserve-3d;will-change:transform;transition:transform .2s ease-out,border-color .2s;box-shadow:0 30px 60px -40px rgba(124,92,255,.6)}
+.card:hover{border-color:rgba(124,92,255,.6)}
+.grid{perspective:1100px}.grid>.card>*{transform:translateZ(16px)}.grid>.card>h3{transform:translateZ(26px)}
+.rv{opacity:0;transform:perspective(1000px) rotateX(14deg) translateY(38px);transition:opacity .8s,transform .8s cubic-bezier(.2,.7,.2,1)}.rv.rvi{opacity:1;transform:none}
+.t{border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:6px 18px;background:rgba(14,11,32,.86)}
+.cg input,.cg select{border-radius:12px;border-color:rgba(255,255,255,.14)}
+.cg input:focus,.cg select:focus{outline:0;border-color:#7c5cff;box-shadow:0 0 0 3px rgba(124,92,255,.28)}
+th,td{border-color:rgba(255,255,255,.1)}footer{border-color:rgba(255,255,255,.1)}
+a{outline-color:#41e0ff}
+@media(max-width:900px){#fxc{opacity:.35}}
+@media print{#fxc{display:none!important}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}.rv{opacity:1;transform:none}}
