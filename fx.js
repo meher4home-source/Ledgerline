@@ -1,6 +1,7 @@
 /* Ledgerline 3D layer: one persistent WebGL scene + 3D tilt, depth reveals, page swing. Design only. */
 (function(){
 var APP=!!document.getElementById('app'),rm=matchMedia('(prefers-reduced-motion:reduce)').matches,$=function(s){return document.querySelector(s)};
+document.addEventListener('click',function(e){var j=e.target.closest&&e.target.closest('[data-jump]');if(!j)return;var t=document.getElementById(j.dataset.jump);if(t)t.scrollIntoView({behavior:rm?'auto':'smooth',block:'start'})});
 /* 3D tilt */
 if(!rm){var cur=null,SEL=APP?'.tile,.dc,.tc,.plc':'.grid>.card,.plan';
  document.addEventListener('pointermove',function(e){var c=e.target.closest&&e.target.closest(SEL);if(cur&&cur!==c){cur.style.transform='';cur=null}if(!c)return;cur=c;var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform='perspective(900px) rotateY('+(x*10)+'deg) rotateX('+(-y*10)+'deg) translateZ(6px)'});
