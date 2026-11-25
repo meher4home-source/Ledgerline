@@ -20,3 +20,4 @@ a{outline-color:#41e0ff}
 @media(max-width:900px){#fxc{opacity:.35}}
 @media print{#fxc{display:none!important}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}.rv{opacity:1;transform:none}}
+html,body{overflow-x:clip}
